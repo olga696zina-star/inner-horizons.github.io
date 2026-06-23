@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Horizons — внутренние горизонты</title>
+    <style>
+        /* ===== ОБЩИЕ СТИЛИ ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: radial-gradient(ellipse at center, #0b0f1a 0%, #1a1f2f 100%);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            color: #f0e9e0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        /* ===== ШАПКА ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 400;
+            color: #f5d7b3;
+            letter-spacing: 2px;
+        }
+        .logo span { color: #a89f94; font-weight: 300; }
+        .nav {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #ddd6cc;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav a:hover {
+            color: #f5d7b3;
+            border-bottom-color: #f5d7b3;
+        }
+        .nav a.active {
+            color: #f5d7b3;
+            border-bottom-color: #f5d7b3;
+        }
+        /* ===== ГЕРОЙ ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 400;
+            color: #f5d7b3;
+            text-shadow: 0 0 60px rgba(245,215,179,0.08);
+            max-width: 800px;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: #a89f94; font-style: italic; }
+        .hero p {
+            font-size: 20px;
+            color: #a89f94;
+            margin-top: 20px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .hero .btn {
+            margin-top: 40px;
+            padding: 18px 60px;
+            background: #f5d7b3;
+            color: #0b0f1a;
+            border: none;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(245,215,179,0.1);
+        }
+        .hero .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(245,215,179,0.2);
+            background: #ffebd0;
+        }
+        /* ===== КАРТОЧКИ ===== */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 60px 0 40px;
+        }
+        .project-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 24px;
+            padding: 30px 28px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: 0.3s;
+            text-decoration: none;
+            color: #f0e9e0;
+            display: block;
+        }
+        .project-card:hover {
+            background: rgba(255,255,255,0.07);
+            transform: translateY(-4px);
+            border-color: rgba(245,215,179,0.15);
+        }
+        .project-card .icon { font-size: 32px; margin-bottom: 12px; display: block; }
+        .project-card h3 { font-size: 20px; font-weight: 400; color: #f5d7b3; margin-bottom: 8px; }
+        .project-card p { font-size: 15px; color: #a89f94; line-height: 1.5; }
+        .project-card .status {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 12px;
+            color: #7ddf9a;
+            border: 1px solid rgba(125,223,154,0.2);
+            padding: 4px 16px;
+            border-radius: 40px;
+        }
+        .project-card .status.coming {
+            color: #f5a8a8;
+            border-color: rgba(245,168,168,0.2);
+        }
+        /* ===== ПОДВАЛ ===== */
+        .footer {
+            margin-top: 60px;
+            padding: 30px 0 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 14px;
+            color: #6a6258;
+        }
+        .footer a {
+            color: #a89f94;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer a:hover { color: #f5d7b3; }
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 700px) {
+            .header { flex-direction: column; align-items: flex-start; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 17px; }
+            .hero .btn { padding: 16px 40px; font-size: 17px; }
+            .projects { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ===== ШАПКА ===== -->
+    <header class="header">
+        <div class="logo">Inner<span>Horizons</span></div>
+        <nav class="nav">
+            <a href="#" class="active">Главная</a>
+            <a href="#projects">Проекты</a>
+            <a href="#about">О нас</a>
+        </nav>
+    </header>
+
+    <!-- ===== ГЕРОЙ ===== -->
+    <section class="hero">
+        <h1>Твой внутренний <span>горизонт</span></h1>
+        <p>Здесь ты встретишься с собой — через письма, зеркала и голоса, которые напомнят, кто ты есть.</p>
+        <a href="letter.html" class="btn">✧ Получить письмо</a>
+    </section>
+
+    <!-- ===== ПРОЕКТЫ ===== -->
+    <section id="projects">
+        <h2 style="font-weight:400;color:#f5d7b3;font-size:28px;text-align:center;margin-bottom:30px;">Наши проекты</h2>
+        <div class="projects">
+            <a href="letter.html" class="project-card">
+                <span class="icon">✧</span>
+                <h3>Письмо из будущего</h3>
+                <p>Ты отвечаешь на вопросы — и нейросеть пишет письмо от тебя через 5 лет.</p>
+                <span class="status">● Доступно</span>
+            </a>
+            <div class="project-card" style="cursor:default;">
+                <span class="icon">✦</span>
+                <h3>Зеркало души</h3>
+                <p>Анализ эмоций по фото. Увидеть себя настоящего.</p>
+                <span class="status coming">● В разработке</span>
+            </div>
+            <div class="project-card" style="cursor:default;">
+                <span class="icon">✧</span>
+                <h3>Мост между поколениями</h3>
+                <p>Разговор с прошлым. Исцеление через память.</p>
+                <span class="status coming">● В разработке</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== О НАС ===== -->
+    <section id="about" style="margin:60px 0 30px;padding:40px 30px;background:rgba(255,255,255,0.03);border-radius:28px;border:1px solid rgba(255,255,255,0.05);">
+        <h2 style="font-weight:400;color:#f5d7b3;font-size:26px;margin-bottom:16px;">✨ О чём этот проект</h2>
+        <p style="color:#ddd6cc;line-height:1.8;font-size:17px;">
+            Inner Horizons — это пространство, где ты можешь <strong style="color:#f5d7b3;">услышать себя</strong>.<br><br>
+            Мы создаём инструменты, которые помогают заглянуть внутрь: через письма из будущего, через отражение в зеркале, через разговор с прошлым.<br><br>
+            <span style="color:#a89f94;">Это не гадание. Это встреча с собой.</span>
+        </p>
+    </section>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <span>© 2026 Inner Horizons</span>
+        <span>
+            <a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a>
+        </span>
+    </footer>
+
+</div>
+</body>
+</html>
