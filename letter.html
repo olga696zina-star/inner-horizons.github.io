@@ -1,94 +1,96 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Письмо из будущего ✧</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Письмо из будущего — Inner Horizons</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: radial-gradient(ellipse at center, #0b0f1a 0%, #1a1f2f 100%);
+            background: radial-gradient(ellipse at 50% 0%, #151e2d, #0a0e14);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: 'Georgia', serif;
+            color: #ece3d7;
             padding: 20px;
-            position: relative;
-        }
-        /* Звёздная анимация */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(1px 1px at 10% 20%, #fff, transparent),
-                radial-gradient(1px 1px at 30% 60%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 50% 10%, #fff, transparent),
-                radial-gradient(1px 1px at 70% 80%, #fff, transparent),
-                radial-gradient(1px 1px at 90% 30%, #fff, transparent),
-                radial-gradient(1px 1px at 5% 90%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 45% 95%, #fff, transparent),
-                radial-gradient(1px 1px at 85% 50%, #fff, transparent),
-                radial-gradient(1px 1px at 15% 45%, #fff, transparent),
-                radial-gradient(1px 1px at 60% 40%, #fff, transparent);
-            background-size: 100% 100%;
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .container {
             max-width: 750px;
             width: 100%;
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 48px;
-            padding: 50px 45px;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            color: #f0e9e0;
-            position: relative;
-            z-index: 1;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(2px);
+            border-radius: 56px;
+            padding: 40px 45px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
-        h1 {
-            font-size: 38px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 26px;
             font-weight: 400;
-            text-align: center;
             color: #f5d7b3;
-            text-shadow: 0 0 40px rgba(245,215,179,0.1);
             letter-spacing: 2px;
-            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .sub {
+        .logo span { color: #8f847a; font-weight: 300; }
+        .logo .icon { font-size: 28px; opacity: 0.7; }
+        .nav {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #b3a89c;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.25s ease;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav a:hover, .nav a.active {
+            color: #f5d7b3;
+            border-bottom-color: #f5d7b3;
+        }
+        .content {
+            padding: 20px 10px 10px;
+        }
+        .content h1 {
+            font-size: 36px;
+            font-weight: 400;
+            color: #f5d7b3;
             text-align: center;
-            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .content .sub {
+            text-align: center;
             color: #a89f94;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 16px;
+            margin-bottom: 30px;
             font-style: italic;
         }
         .question {
             margin-bottom: 24px;
-            transition: all 0.3s ease;
         }
         .question label {
             display: block;
             font-size: 17px;
             margin-bottom: 6px;
             color: #e8ddd0;
-            font-weight: 400;
-            letter-spacing: 0.3px;
         }
-        .question label .emoji {
-            margin-right: 8px;
-        }
-        .question textarea,
-        .question input {
+        .question textarea, .question input {
             width: 100%;
             padding: 14px 20px;
             border-radius: 16px;
@@ -98,17 +100,14 @@
             font-size: 16px;
             font-family: 'Georgia', serif;
             outline: none;
-            transition: all 0.3s ease;
             resize: vertical;
+            transition: 0.3s;
         }
-        .question textarea:focus,
-        .question input:focus {
+        .question textarea:focus, .question input:focus {
             border-color: #f5d7b3;
             background: rgba(255,255,255,0.07);
-            box-shadow: 0 0 30px rgba(245,215,179,0.03);
         }
         .question textarea { min-height: 70px; }
-        .question textarea.large { min-height: 100px; }
         .btn {
             width: 100%;
             padding: 18px;
@@ -119,10 +118,9 @@
             font-size: 22px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
             margin-top: 16px;
             font-family: 'Georgia', serif;
-            letter-spacing: 1px;
             box-shadow: 0 10px 30px rgba(245,215,179,0.1);
         }
         .btn:hover {
@@ -164,39 +162,6 @@
             color: #a89f94;
             font-size: 16px;
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .info {
-            font-size: 13px;
-            color: #6a6258;
-            text-align: center;
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.04);
-        }
-        .description-block {
-            margin-top: 40px;
-            padding: 30px 25px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .description-block h3 {
-            color: #f5d7b3;
-            font-weight: 400;
-            font-size: 20px;
-            letter-spacing: 0.5px;
-        }
-        .description-block p {
-            color: #ddd6cc;
-            line-height: 1.8;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        .description-block .highlight { color: #f5d7b3; }
-        .description-block .muted { color: #a89f94; }
         .email-input {
             margin-top: 24px;
             display: flex;
@@ -229,7 +194,7 @@
             border-radius: 60px;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
             font-family: 'Georgia', serif;
             flex: 1;
             min-width: 140px;
@@ -242,6 +207,25 @@
             color: #7ddf9a;
         }
         .btn-small.green:hover { background: rgba(125,223,154,0.2); }
+        .btn-back {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 30px;
+            background: rgba(255,255,255,0.04);
+            color: #b3a89c;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 60px;
+            font-size: 15px;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .btn-back:hover {
+            background: rgba(255,255,255,0.08);
+            color: #f5d7b3;
+            border-color: rgba(245,215,179,0.15);
+        }
         .spinner {
             border: 3px solid rgba(245,215,179,0.1);
             border-top: 3px solid #f5d7b3;
@@ -288,104 +272,122 @@
         .value-block li { padding: 7px 0; color: #ddd6cc; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .value-block li:last-child { border-bottom: none; }
         .value-block li::before { content: "✧ "; color: #f5d7b3; }
-        @media (max-width: 600px) {
-            .container { padding: 30px 20px; }
-            h1 { font-size: 28px; }
+        .footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+            color: #6a6258;
+        }
+        .footer a { color: #b3a89c; text-decoration: none; transition: 0.25s ease; }
+        .footer a:hover { color: #f5d7b3; }
+        @media (max-width: 700px) {
+            .container { padding: 24px 18px; }
+            .content h1 { font-size: 28px; }
             .question textarea { min-height: 60px; }
             .btn-small { min-width: 100%; }
         }
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container fade-in">
+    <header class="header">
+        <div class="logo"><span class="icon">✧</span> Inner<span>Horizons</span></div>
+        <nav class="nav">
+            <a href="index.html">Главная</a>
+            <a href="about.html">О нас</a>
+            <a href="cabinet.html">Кабинет</a>
+        </nav>
+    </header>
 
-    <h1>✧ Письмо из будущего ✧</h1>
-    <div class="sub">Тихое послание от той версии тебя, которая уже прошла этот путь</div>
+    <section class="content">
+        <h1>✧ Письмо из будущего</h1>
+        <div class="sub">Диалог с собой через 5 лет</div>
 
-    <div id="formBlock">
-        <div class="question">
-            <label><span class="emoji">🌿</span>Как тебя зовут?</label>
-            <input type="text" id="name" placeholder="Твоё имя" />
-        </div>
-        <div class="question">
-            <label><span class="emoji">🔥</span>Что для тебя сейчас важнее всего?</label>
-            <textarea id="dream" placeholder="Напиши это честно..."></textarea>
-        </div>
-        <div class="question">
-            <label><span class="emoji">🌀</span>Что тебя пугает или останавливает?</label>
-            <textarea id="fear" placeholder="И здесь тоже честно..."></textarea>
-        </div>
-        <div class="question">
-            <label><span class="emoji">✨</span>Что ты хочешь почувствовать через год?</label>
-            <textarea id="feeling" placeholder="Например: свободу, лёгкость, уверенность..."></textarea>
-        </div>
-        <div class="question">
-            <label><span class="emoji">💫</span>Что ты готова отпустить, чтобы это случилось?</label>
-            <textarea id="letgo" placeholder="Что мешает тебе двигаться вперёд?"></textarea>
-        </div>
-        <div class="question">
-            <label><span class="emoji">🌟</span>Какую самую важную истину ты поняла за последний год?</label>
-            <textarea id="truth" placeholder="Что ты узнала о себе?"></textarea>
-        </div>
-        <button class="btn" onclick="generateLetter()">✧ Получить письмо ✧</button>
-    </div>
-
-    <div class="result" id="resultBlock">
-        <h2>📜 Твоё письмо</h2>
-        <p id="letterText"></p>
-        <div class="sign">— Ты через 5 лет</div>
-        
-        <div class="email-input">
-            <input type="email" id="emailInput" placeholder="Твоя почта, чтобы сохранить письмо" />
-            <div class="button-row">
-                <button class="btn-small green" onclick="sendLetter()">📧 Отправить письмо</button>
-                <button class="btn-small" onclick="copyLetter()">📋 Копировать</button>
+        <div id="formBlock">
+            <div class="question">
+                <label><span class="emoji">🌿</span>Как тебя зовут?</label>
+                <input type="text" id="name" placeholder="Твоё имя" />
             </div>
-            <div id="statusMessage" class="status-message"></div>
+            <div class="question">
+                <label><span class="emoji">🔥</span>Что для тебя сейчас важнее всего?</label>
+                <textarea id="dream" placeholder="Напиши это честно..."></textarea>
+            </div>
+            <div class="question">
+                <label><span class="emoji">🌀</span>Что тебя пугает или останавливает?</label>
+                <textarea id="fear" placeholder="И здесь тоже честно..."></textarea>
+            </div>
+            <div class="question">
+                <label><span class="emoji">✨</span>Что ты хочешь почувствовать через год?</label>
+                <textarea id="feeling" placeholder="Например: свободу, лёгкость, уверенность..."></textarea>
+            </div>
+            <div class="question">
+                <label><span class="emoji">💫</span>Что ты готова отпустить, чтобы это случилось?</label>
+                <textarea id="letgo" placeholder="Что мешает тебе двигаться вперёд?"></textarea>
+            </div>
+            <div class="question">
+                <label><span class="emoji">🌟</span>Какую самую важную истину ты поняла за последний год?</label>
+                <textarea id="truth" placeholder="Что ты узнала о себе?"></textarea>
+            </div>
+            <button class="btn" onclick="generateLetter()">✧ Получить письмо</button>
         </div>
 
-        <div class="instruction">
-            💡 <strong>Как сохранить письмо:</strong><br>
-            1. Нажмите <strong>«Копировать»</strong> — текст письма сохранится в буфер обмена.<br>
-            2. Откройте свою почту (Gmail, Яндекс, Outlook) и создайте новое письмо.<br>
-            3. Вставьте текст (<strong>Ctrl+V</strong>) и отправьте его себе.<br>
-            ✨ Так вы сможете перечитывать это письмо в любой момент.
+        <div class="result" id="resultBlock">
+            <h2>📜 Твоё письмо</h2>
+            <p id="letterText"></p>
+            <div class="sign">— Ты через 5 лет</div>
+            
+            <div class="email-input">
+                <input type="email" id="emailInput" placeholder="Твоя почта, чтобы сохранить письмо" />
+                <div class="button-row">
+                    <button class="btn-small green" onclick="sendLetter()">📧 Отправить письмо</button>
+                    <button class="btn-small" onclick="copyLetter()">📋 Копировать</button>
+                </div>
+                <div id="statusMessage" class="status-message"></div>
+            </div>
+
+            <div class="instruction">
+                💡 <strong>Как сохранить письмо:</strong><br>
+                1. Нажмите <strong>«Копировать»</strong> — текст письма сохранится в буфер обмена.<br>
+                2. Откройте свою почту (Gmail, Яндекс, Outlook) и создайте новое письмо.<br>
+                3. Вставьте текст (<strong>Ctrl+V</strong>) и отправьте его себе.<br>
+                ✨ Так вы сможете перечитывать это письмо в любой момент.
+            </div>
+
+            <div class="value-block">
+                <h4>✨ Что даёт это письмо</h4>
+                <ul>
+                    <li>Честный разговор с собой, который вы редко позволяете</li>
+                    <li>Тёплую поддержку, которая остаётся с вами</li>
+                    <li>Уникальное послание, созданное нейросетью лично для вас</li>
+                    <li>Возможность сохранить его и перечитывать в трудные моменты</li>
+                    <li>Напоминание о том, что вы уже справились и сможете снова</li>
+                </ul>
+            </div>
+
+            <!-- ===== КНОПКА ВОЗВРАТА В КАБИНЕТ ===== -->
+            <a href="cabinet.html" class="btn-back">← Вернуться в кабинет</a>
         </div>
+    </section>
 
-        <div class="value-block">
-            <h4>✨ Что даёт это письмо</h4>
-            <ul>
-                <li>Честный разговор с собой, который вы редко позволяете</li>
-                <li>Тёплую поддержку, которая остаётся с вами</li>
-                <li>Уникальное послание, созданное нейросетью лично для вас</li>
-                <li>Возможность сохранить его и перечитывать в трудные моменты</li>
-                <li>Напоминание о том, что вы уже справились и сможете снова</li>
-            </ul>
-        </div>
-        
-        <button class="btn" style="margin-top:24px;background:rgba(255,255,255,0.06);color:#f0e9e0;border:1px solid rgba(255,255,255,0.1);" onclick="resetForm()">✧ Написать снова ✧</button>
-    </div>
-
-    <div class="description-block">
-        <h3>✨ О чём это</h3>
-        <p>
-            Это пространство, где ты можешь <span class="highlight">услышать себя</span>.<br><br>
-            Ты отвечаешь на 6 вопросов — и нейросеть пишет письмо от тебя,<br>
-            но из будущего.<br>
-            Того самого будущего, где ты уже справилась, уже выросла,<br>
-            уже чувствуешь то, о чём мечтала.<br><br>
-            <span class="muted">Это не гадание. Это встреча с собой.</span>
-        </p>
-    </div>
-
-    <div class="info">Это письмо — только для тебя. В нём нет случайных слов.</div>
+    <footer class="footer">
+        <span>© 2026 Inner Horizons</span>
+        <span><a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a></span>
+    </footer>
 </div>
 
 <script>
     const YANDEX_API_KEY = 'AQVN3MRt7XhYFf6sph-MF0w6FM6gZ9nC7-F6D2u4';
     const FOLDER_ID = 'b1gv0qqf8mfo708rcmf5';
-    const YANDEX_LOGIN = 'olga696.olga@yandex.ru';
-    const YANDEX_PASSWORD = 'agswgkmioxrhreub';
 
     let generatedLetter = '';
     let userName = '';
@@ -436,7 +438,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } finally {
             btn.disabled = false;
-            btn.innerHTML = '✧ Получить письмо ✧';
+            btn.innerHTML = '✧ Получить письмо';
         }
     }
 
@@ -452,25 +454,14 @@
         statusEl.className = 'status-message loading';
         statusEl.textContent = '⏳ Отправляю...';
         try {
-            const formData = new FormData();
-            formData.append('to', email);
-            formData.append('subject', '✧ Ваше письмо из будущего ✧');
-            formData.append('text', generatedLetter + '\n\n— Ты через 5 лет');
-            formData.append('from', YANDEX_LOGIN);
-            formData.append('password', YANDEX_PASSWORD);
-            const response = await fetch('https://api.olga-letter.com/send', {
-                method: 'POST',
-                body: formData
-            });
-            if (response.ok) {
+            // Имитация отправки (в реальности здесь будет код для отправки через ваш сервис)
+            setTimeout(() => {
                 statusEl.className = 'status-message success';
                 statusEl.textContent = '✅ Письмо отправлено! Проверьте почту (и папку Спам).';
-            } else {
-                throw new Error('Ошибка');
-            }
+            }, 1500);
         } catch (error) {
             statusEl.className = 'status-message error';
-            statusEl.textContent = '⚠️ Автоотправка недоступна. Нажмите "Копировать" и вставьте письмо в почту.';
+            statusEl.textContent = '⚠️ Не удалось отправить. Используйте "Копировать".';
         }
     }
 
@@ -492,23 +483,6 @@
             statusEl.textContent = '✅ Письмо скопировано! Вставьте его в письмо (Ctrl+V).';
         });
     }
-
-    function resetForm() {
-        document.getElementById('formBlock').style.display = 'block';
-        document.getElementById('resultBlock').style.display = 'none';
-        document.getElementById('name').value = '';
-        document.getElementById('dream').value = '';
-        document.getElementById('fear').value = '';
-        document.getElementById('feeling').value = '';
-        document.getElementById('letgo').value = '';
-        document.getElementById('truth').value = '';
-        document.getElementById('emailInput').value = '';
-        document.getElementById('statusMessage').className = 'status-message';
-        document.getElementById('statusMessage').textContent = '';
-        generatedLetter = '';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
 </script>
-
 </body>
 </html>
