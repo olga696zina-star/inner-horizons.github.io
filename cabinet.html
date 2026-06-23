@@ -106,21 +106,29 @@
         .project-card .icon { font-size: 32px; margin-bottom: 12px; display: block; }
         .project-card h3 { font-size: 20px; font-weight: 400; color: #f5d7b3; margin-bottom: 6px; }
         .project-card p { font-size: 15px; color: #b3a89c; line-height: 1.5; }
-        .project-card .price {
+        .project-card .btn-action {
             display: inline-block;
             margin-top: 14px;
-            font-size: 14px;
-            padding: 6px 18px;
+            padding: 8px 24px;
             border-radius: 40px;
-            letter-spacing: 0.3px;
-        }
-        .project-card .price.free {
-            color: #7ddf9a;
-            border: 1px solid rgba(125, 223, 154, 0.2);
-        }
-        .project-card .price.paid {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+            background: rgba(245, 215, 179, 0.1);
             color: #f5d7b3;
             border: 1px solid rgba(245, 215, 179, 0.2);
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .project-card .btn-action:hover {
+            background: rgba(245, 215, 179, 0.2);
+        }
+        .project-card .btn-action.free {
+            color: #7ddf9a;
+            border-color: rgba(125, 223, 154, 0.2);
+        }
+        .project-card .btn-action.free:hover {
+            background: rgba(125, 223, 154, 0.1);
         }
         .footer {
             margin-top: 40px;
@@ -151,13 +159,20 @@
             transition: 0.3s;
         }
         .logout:hover { color: #f5a8a8; }
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container fade-in">
     <header class="header">
         <div class="logo"><span class="icon">✧</span> Inner<span>Horizons</span></div>
         <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="about.html">О нас</a>
+                <a href="cabinet.html" class="active">Кабинет</a>
+            </nav>
             <div class="user-info">Добро пожаловать, <strong>Ольга</strong></div>
             <button class="logout" onclick="if(confirm('Выйти?')){window.location.href='index.html'}">🚪 Выйти</button>
         </div>
@@ -173,21 +188,19 @@
             <span class="icon">✧</span>
             <h3>Письмо из будущего</h3>
             <p>Ты отвечаешь на вопросы — и нейросеть пишет письмо от тебя через 5 лет.</p>
-            <span class="price free">● Бесплатно</span>
+            <span class="btn-action free">Начать диалог</span>
         </a>
-
-        <div class="project-card" onclick="alert('🔒 Оплата: 500 ₽. Доступ откроется после оплаты.\nПока это демо-версия.')">
+        <a href="mirror.html" class="project-card">
             <span class="icon">✦</span>
             <h3>Зеркало души</h3>
-            <p>Анализ эмоций по фото. Увидеть себя настоящего.</p>
-            <span class="price paid">● 500 ₽</span>
-        </div>
-
-        <div class="project-card" onclick="alert('🔒 Оплата: 1500 ₽. Доступ откроется после оплаты.\nПока это демо-версия.')">
+            <p>Пространство тишины. Встреча с собой через фото и отражение.</p>
+            <span class="btn-action">Встретиться с собой</span>
+        </a>
+        <div class="project-card" onclick="alert('🔒 Оплата: 1500 ₽. Доступ откроется после оплаты.')">
             <span class="icon">✧</span>
             <h3>Мост между поколениями</h3>
             <p>Разговор с прошлым. Исцеление через память.</p>
-            <span class="price paid">● 1500 ₽</span>
+            <span class="btn-action">Пройти по мосту</span>
         </div>
     </section>
 
