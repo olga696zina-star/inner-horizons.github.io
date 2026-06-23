@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — Inner Horizons</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: radial-gradient(ellipse at 50% 0%, #151e2d, #0a0e14);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            color: #ece3d7;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(2px);
+            border-radius: 56px;
+            padding: 40px 45px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 400;
+            color: #f5d7b3;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo span { color: #8f847a; font-weight: 300; }
+        .logo .icon { font-size: 28px; opacity: 0.7; }
+        .nav {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #b3a89c;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.25s ease;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav a:hover { color: #f5d7b3; border-bottom-color: #f5d7b3; }
+        .user-info {
+            text-align: right;
+            font-size: 14px;
+            color: #b3a89c;
+        }
+        .user-info strong { color: #f5d7b3; font-weight: 400; }
+        .welcome {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+        .welcome h2 {
+            font-size: 32px;
+            font-weight: 400;
+            color: #f5d7b3;
+        }
+        .welcome p {
+            color: #b3a89c;
+            font-size: 17px;
+            margin-top: 6px;
+        }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            margin: 30px 0 20px;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 28px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: 0.3s ease;
+            text-decoration: none;
+            color: #ece3d7;
+            display: block;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-4px);
+            border-color: rgba(245, 215, 179, 0.12);
+        }
+        .project-card .icon { font-size: 32px; margin-bottom: 12px; display: block; }
+        .project-card h3 { font-size: 20px; font-weight: 400; color: #f5d7b3; margin-bottom: 6px; }
+        .project-card p { font-size: 15px; color: #b3a89c; line-height: 1.5; }
+        .project-card .price {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 14px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+        .project-card .price.free {
+            color: #7ddf9a;
+            border: 1px solid rgba(125, 223, 154, 0.2);
+        }
+        .project-card .price.paid {
+            color: #f5d7b3;
+            border: 1px solid rgba(245, 215, 179, 0.2);
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+            color: #6a6258;
+        }
+        .footer a { color: #b3a89c; text-decoration: none; transition: 0.25s ease; }
+        .footer a:hover { color: #f5d7b3; }
+        @media (max-width: 700px) {
+            .container { padding: 24px 18px; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .welcome h2 { font-size: 26px; }
+            .projects { grid-template-columns: 1fr; }
+        }
+        .logout {
+            background: none;
+            border: none;
+            color: #b3a89c;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Georgia', serif;
+            transition: 0.3s;
+        }
+        .logout:hover { color: #f5a8a8; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="logo"><span class="icon">✧</span> Inner<span>Horizons</span></div>
+        <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+            <div class="user-info">Добро пожаловать, <strong>Ольга</strong></div>
+            <button class="logout" onclick="if(confirm('Выйти?')){window.location.href='index.html'}">🚪 Выйти</button>
+        </div>
+    </header>
+
+    <section class="welcome">
+        <h2>✧ Твоё пространство</h2>
+        <p>Выбери проект, чтобы начать свой внутренний путь</p>
+    </section>
+
+    <section class="projects">
+        <a href="letter.html" class="project-card">
+            <span class="icon">✧</span>
+            <h3>Письмо из будущего</h3>
+            <p>Ты отвечаешь на вопросы — и нейросеть пишет письмо от тебя через 5 лет.</p>
+            <span class="price free">● Бесплатно</span>
+        </a>
+
+        <div class="project-card" onclick="alert('🔒 Оплата: 500 ₽. Доступ откроется после оплаты.\nПока это демо-версия.')">
+            <span class="icon">✦</span>
+            <h3>Зеркало души</h3>
+            <p>Анализ эмоций по фото. Увидеть себя настоящего.</p>
+            <span class="price paid">● 500 ₽</span>
+        </div>
+
+        <div class="project-card" onclick="alert('🔒 Оплата: 1500 ₽. Доступ откроется после оплаты.\nПока это демо-версия.')">
+            <span class="icon">✧</span>
+            <h3>Мост между поколениями</h3>
+            <p>Разговор с прошлым. Исцеление через память.</p>
+            <span class="price paid">● 1500 ₽</span>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <span>© 2026 Inner Horizons</span>
+        <span><a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a></span>
+    </footer>
+</div>
+</body>
+</html>
