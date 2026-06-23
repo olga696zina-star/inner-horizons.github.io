@@ -109,26 +109,17 @@
             font-size: 16px;
             line-height: 1.6;
         }
-        .notification strong {
-            color: #f5d7b3;
-        }
-        .notification .emoji {
-            font-size: 24px;
-            display: block;
-            margin-bottom: 8px;
-        }
+        .notification strong { color: #f5d7b3; }
+        .notification .emoji { font-size: 24px; display: block; margin-bottom: 8px; }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="logo-link">
-        <a href="index.html">✧ Inner<span>Horizons</span></a>
-    </div>
+    <div class="logo-link"><a href="index.html">✧ Inner<span>Horizons</span></a></div>
 
     <h1>✧ Начать путь</h1>
     <div class="sub">Создай аккаунт, чтобы войти в пространство</div>
 
-    <!-- ФОРМА РЕГИСТРАЦИИ -->
     <form id="registerForm" onsubmit="handleRegister(event)">
         <div class="field">
             <label>🌿 Как тебя зовут?</label>
@@ -145,11 +136,8 @@
         <button class="btn" type="submit">✧ Создать аккаунт</button>
     </form>
 
-    <div class="info">
-        Уже есть аккаунт? <a href="#">Войти</a>
-    </div>
+    <div class="info">Уже есть аккаунт? <a href="#">Войти</a></div>
 
-    <!-- БЛОК С БЛАГОДАРНОСТЬЮ (появляется после регистрации) -->
     <div id="thankYouBlock" class="notification">
         <span class="emoji">✧</span>
         <strong>Добро пожаловать в Inner Horizons!</strong><br />
@@ -159,45 +147,27 @@
 </div>
 
 <script>
-    // ============================================================
-    // === ОБРАБОТКА РЕГИСТРАЦИИ ===
-    // ============================================================
-
     function handleRegister(event) {
-        event.preventDefault(); // отменяем стандартную отправку формы
-
-        // Получаем данные из полей
+        event.preventDefault();
         const name = document.getElementById('userName').value.trim();
         const email = document.getElementById('userEmail').value.trim();
         const password = document.getElementById('userPassword').value.trim();
 
-        // Простая проверка: все поля должны быть заполнены
         if (!name || !email || !password) {
             alert('❌ Пожалуйста, заполните все поля.');
             return;
         }
 
-        // === ПОКАЗЫВАЕМ БЛАГОДАРСТВЕННОЕ СООБЩЕНИЕ ===
         const thankYouBlock = document.getElementById('thankYouBlock');
         const emailDisplay = document.getElementById('userEmailDisplay');
-        emailDisplay.textContent = email; // вставляем email пользователя
-        thankYouBlock.style.display = 'block'; // показываем блок
-
-        // Скрываем форму регистрации
+        emailDisplay.textContent = email;
+        thankYouBlock.style.display = 'block';
         document.getElementById('registerForm').style.display = 'none';
 
-        // Имитация отправки письма на почту (демо-режим)
-        console.log(`✅ Приветственное письмо отправлено на ${email}`);
-
-        // === ПЕРЕНАПРАВЛЕНИЕ В ЛИЧНЫЙ КАБИНЕТ ЧЕРЕЗ 3 СЕКУНДЫ ===
         setTimeout(function() {
             window.location.href = 'cabinet.html';
         }, 3000);
     }
 </script>
-
-</body>
-</html>
-
 </body>
 </html>
