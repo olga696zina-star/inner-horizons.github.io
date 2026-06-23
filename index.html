@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inner Horizons — внутренние горизонты</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             background: radial-gradient(ellipse at 50% 0%, #151e2d, #0a0e14);
             min-height: 100vh;
@@ -22,26 +26,80 @@
             background: #f0ece6;
             color: #1a1a1a;
         }
-        body.light .container { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.05); }
-        body.light .logo { color: #2a1f14; }
-        body.light .logo span { color: #6a5f54; }
-        body.light .nav a { color: #4a3f34; }
-        body.light .nav a:hover { color: #2a1f14; border-bottom-color: #2a1f14; }
-        body.light .hero h1 { color: #2a1f14; }
-        body.light .hero h1 span { color: #6a5f54; }
-        body.light .hero p { color: #4a3f34; }
-        body.light .hero .btn { background: #2a1f14; color: #f0ece6; }
-        body.light .hero .btn:hover { background: #3a2f24; }
-        body.light .project-card { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.06); }
-        body.light .project-card:hover { background: rgba(0, 0, 0, 0.06); }
-        body.light .project-card h3 { color: #2a1f14; }
-        body.light .project-card p { color: #4a3f34; }
-        body.light .about { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.05); }
-        body.light .about p { color: #3a2f24; }
-        body.light .about h2 { color: #2a1f14; }
-        body.light .footer { color: #8a7f74; border-top-color: rgba(0, 0, 0, 0.06); }
-        body.light .footer a { color: #4a3f34; }
-        body.light .footer a:hover { color: #2a1f14; }
+        body.light .container {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.05);
+        }
+        body.light .logo {
+            color: #2a1f14;
+        }
+        body.light .logo span {
+            color: #6a5f54;
+        }
+        body.light .nav a {
+            color: #4a3f34;
+        }
+        body.light .nav a:hover {
+            color: #2a1f14;
+            border-bottom-color: #2a1f14;
+        }
+        body.light .hero h1 {
+            color: #2a1f14;
+        }
+        body.light .hero h1 span {
+            color: #6a5f54;
+        }
+        body.light .hero p {
+            color: #4a3f34;
+        }
+        body.light .hero .btn {
+            background: #2a1f14;
+            color: #f0ece6;
+        }
+        body.light .hero .btn:hover {
+            background: #3a2f24;
+        }
+        body.light .project-card {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+        body.light .project-card:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+        body.light .project-card h3 {
+            color: #2a1f14;
+        }
+        body.light .project-card p {
+            color: #4a3f34;
+        }
+        body.light .testimonial {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.05);
+            color: #3a2f24;
+        }
+        body.light .testimonial .author {
+            color: #2a1f14;
+        }
+        body.light .about {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.05);
+        }
+        body.light .about p {
+            color: #3a2f24;
+        }
+        body.light .about h2 {
+            color: #2a1f14;
+        }
+        body.light .footer {
+            color: #8a7f74;
+            border-top-color: rgba(0, 0, 0, 0.06);
+        }
+        body.light .footer a {
+            color: #4a3f34;
+        }
+        body.light .footer a:hover {
+            color: #2a1f14;
+        }
         .container {
             max-width: 1100px;
             width: 100%;
@@ -71,8 +129,14 @@
             align-items: center;
             gap: 10px;
         }
-        .logo span { color: #8f847a; font-weight: 300; }
-        .logo .icon { font-size: 28px; opacity: 0.7; }
+        .logo span {
+            color: #8f847a;
+            font-weight: 300;
+        }
+        .logo .icon {
+            font-size: 28px;
+            opacity: 0.7;
+        }
         .nav {
             display: flex;
             gap: 28px;
@@ -87,10 +151,14 @@
             border-bottom: 1px solid transparent;
             padding-bottom: 4px;
         }
-        .nav a:hover, .nav a.active { color: #f5d7b3; border-bottom-color: #f5d7b3; }
+        .nav a:hover,
+        .nav a.active {
+            color: #f5d7b3;
+            border-bottom-color: #f5d7b3;
+        }
         .theme-toggle {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #f5d7b3;
             padding: 6px 16px;
             border-radius: 40px;
@@ -99,7 +167,9 @@
             font-size: 14px;
             transition: 0.3s;
         }
-        .theme-toggle:hover { background: rgba(255,255,255,0.1); }
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
         .hero {
             display: flex;
             flex-direction: column;
@@ -115,7 +185,10 @@
             line-height: 1.2;
             max-width: 800px;
         }
-        .hero h1 span { color: #b3a89c; font-style: italic; }
+        .hero h1 span {
+            color: #b3a89c;
+            font-style: italic;
+        }
         .hero p {
             font-size: 20px;
             color: #b3a89c;
@@ -167,16 +240,28 @@
             text-decoration: none;
             color: #ece3d7;
             display: block;
-            cursor: pointer;
         }
         .project-card:hover {
             background: rgba(255, 255, 255, 0.06);
             transform: translateY(-4px);
             border-color: rgba(245, 215, 179, 0.12);
         }
-        .project-card .icon { font-size: 32px; margin-bottom: 12px; display: block; }
-        .project-card h3 { font-size: 20px; font-weight: 400; color: #f5d7b3; margin-bottom: 6px; }
-        .project-card p { font-size: 15px; color: #b3a89c; line-height: 1.5; }
+        .project-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .project-card h3 {
+            font-size: 20px;
+            font-weight: 400;
+            color: #f5d7b3;
+            margin-bottom: 6px;
+        }
+        .project-card p {
+            font-size: 15px;
+            color: #b3a89c;
+            line-height: 1.5;
+        }
         .project-card .price {
             display: inline-block;
             margin-top: 14px;
@@ -185,8 +270,61 @@
             border-radius: 40px;
             letter-spacing: 0.3px;
         }
-        .project-card .price.free { color: #7ddf9a; border: 1px solid rgba(125, 223, 154, 0.2); }
-        .project-card .price.paid { color: #f5d7b3; border: 1px solid rgba(245, 215, 179, 0.2); }
+        .project-card .price.free {
+            color: #7ddf9a;
+            border: 1px solid rgba(125, 223, 154, 0.2);
+        }
+        .project-card .price.paid {
+            color: #f5d7b3;
+            border: 1px solid rgba(245, 215, 179, 0.2);
+        }
+        .testimonials {
+            margin: 40px 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .testimonial {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-style: italic;
+            color: #cdc3b7;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .testimonial .author {
+            margin-top: 12px;
+            color: #f5d7b3;
+            font-style: normal;
+            font-weight: 400;
+        }
+        .about {
+            margin: 40px 0 20px;
+            padding: 36px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .about h2 {
+            font-weight: 400;
+            color: #f5d7b3;
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+        .about p {
+            color: #cdc3b7;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+        .about strong {
+            color: #f5d7b3;
+            font-weight: 400;
+        }
+        .about .muted {
+            color: #8f847a;
+        }
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -198,82 +336,142 @@
             font-size: 14px;
             color: #6a6258;
         }
-        .footer a { color: #b3a89c; text-decoration: none; transition: 0.25s ease; }
-        .footer a:hover { color: #f5d7b3; }
-        @media (max-width: 700px) {
-            .container { padding: 24px 18px; }
-            .header { flex-direction: column; align-items: flex-start; }
-            .hero h1 { font-size: 34px; }
-            .hero p { font-size: 17px; }
-            .hero .btn { padding: 14px 36px; font-size: 17px; }
-            .projects { grid-template-columns: 1fr; }
+        .footer a {
+            color: #b3a89c;
+            text-decoration: none;
+            transition: 0.25s ease;
         }
-        .fade-in { animation: fadeIn 0.8s ease forwards; }
-        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+        .footer a:hover {
+            color: #f5d7b3;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 24px 18px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero h1 {
+                font-size: 34px;
+            }
+            .hero p {
+                font-size: 17px;
+            }
+            .hero .btn {
+                padding: 14px 36px;
+                font-size: 17px;
+            }
+            .projects {
+                grid-template-columns: 1fr;
+            }
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+            .about {
+                padding: 24px 18px;
+            }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
     </style>
 </head>
 <body>
-<div class="container fade-in">
-    <header class="header">
-        <div class="logo"><span class="icon">✧</span> Inner<span>Horizons</span></div>
-        <nav class="nav">
-            <a href="#" class="active">Главная</a>
-            <a href="about.html">О нас</a>
-            <a href="cabinet.html">Кабинет</a>
-            <button class="theme-toggle" onclick="toggleTheme()">🌓 Тема</button>
-        </nav>
-    </header>
+    <div class="container fade-in">
+        <header class="header">
+            <div class="logo"><span class="icon">✧</span> Inner<span>Horizons</span></div>
+            <nav class="nav">
+                <a href="#" class="active">Главная</a>
+                <a href="about.html">О нас</a>
+                <a href="cabinet.html">Кабинет</a>
+                <button class="theme-toggle" onclick="toggleTheme()">🌓 Тема</button>
+            </nav>
+        </header>
 
-    <section class="hero fade-in delay-1">
-        <h1>Твой внутренний <span>горизонт</span></h1>
-        <p>Здесь ты встретишься с собой — через письма, зеркала и голоса, которые напомнят, кто ты есть.</p>
-        <a href="register.html" class="btn">✧ Начать путь</a>
-    </section>
+        <section class="hero fade-in delay-1">
+            <h1>Твой внутренний <span>горизонт</span></h1>
+            <p>Здесь ты встретишься с собой — через письма, зеркала и голоса, которые напомнят, кто ты есть.</p>
+            <a href="register.html" class="btn">✧ Начать путь</a>
+        </section>
 
-    <h2 class="projects-title fade-in delay-2">Наши проекты</h2>
-    <section class="projects" id="projects">
-        <a href="letter.html" class="project-card fade-in delay-2">
-            <span class="icon">✧</span>
-            <h3>Письмо из будущего</h3>
-            <p>Ты отвечаешь на вопросы — и нейросеть пишет письмо от тебя через 5 лет.</p>
-            <span class="price free">● Бесплатно</span>
-        </a>
-        <a href="mirror.html" class="project-card fade-in delay-3">
-            <span class="icon">✦</span>
-            <h3>Зеркало души</h3>
-            <p>Пространство тишины. Встреча с собой через фото и отражение.</p>
-            <span class="price paid">● 500 ₽</span>
-        </a>
-        <div class="project-card fade-in delay-3" style="cursor:pointer;" onclick="alert('🔒 Оплата: 1500 ₽. Доступ откроется после оплаты.')">
-            <span class="icon">✧</span>
-            <h3>Мост между поколениями</h3>
-            <p>Разговор с прошлым. Исцеление через память.</p>
-            <span class="price paid">● 1500 ₽</span>
-        </div>
-    </section>
+        <h2 class="projects-title fade-in delay-2">Наши проекты</h2>
+        <section class="projects" id="projects">
+            <a href="letter.html" class="project-card fade-in delay-2">
+                <span class="icon">✧</span>
+                <h3>Письмо из будущего</h3>
+                <p>Ты отвечаешь на вопросы — и нейросеть пишет письмо от тебя через 5 лет.</p>
+                <span class="price free">● Бесплатно</span>
+            </a>
+            <a href="mirror.html" class="project-card fade-in delay-3">
+                <span class="icon">✦</span>
+                <h3>Зеркало души</h3>
+                <p>Анализ эмоций по фото. Увидеть себя настоящего.</p>
+                <span class="price paid">● 500 ₽</span>
+            </a>
+            <div class="project-card fade-in delay-3" style="cursor:pointer;" onclick="alert('🔒 Оплата: 1500 ₽. Доступ откроется после оплаты.')">
+                <span class="icon">✧</span>
+                <h3>Мост между поколениями</h3>
+                <p>Разговор с прошлым. Исцеление через память.</p>
+                <span class="price paid">● 1500 ₽</span>
+            </div>
+        </section>
 
-    <section class="about" id="about" style="margin:40px 0 20px;padding:36px 30px;background:rgba(255,255,255,0.02);border-radius:32px;border:1px solid rgba(255,255,255,0.03);">
-        <h2 style="font-weight:400;color:#f5d7b3;font-size:24px;margin-bottom:14px;">✨ О чём этот проект</h2>
-        <p style="color:#cdc3b7;line-height:1.8;font-size:17px;">
-            Inner Horizons — это пространство, где ты можешь <strong style="color:#f5d7b3;">услышать себя</strong>.<br><br>
-            Мы создаём инструменты, которые помогают заглянуть внутрь: через письма из будущего, через отражение в зеркале, через разговор с прошлым.<br><br>
-            <span style="color:#8f847a;">Это не гадание. Это встреча с собой.</span>
-        </p>
-    </section>
+        <section class="testimonials fade-in delay-3">
+            <div class="testimonial">
+                «Это письмо я перечитываю в трудные дни. Оно напоминает, кто я есть.»
+                <div class="author">— Анна, 34 года</div>
+            </div>
+            <div class="testimonial">
+                «Никогда не думала, что нейросеть сможет так точно передать мои чувства. Спасибо.»
+                <div class="author">— Елена, 28 лет</div>
+            </div>
+            <div class="testimonial">
+                «Я плакала, когда читала. Это было похоже на разговор с самой собой из будущего.»
+                <div class="author">— Мария, 41 год</div>
+            </div>
+        </section>
 
-    <footer class="footer">
-        <span>© 2026 Inner Horizons</span>
-        <span><a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a></span>
-    </footer>
-</div>
+        <section class="about" id="about">
+            <h2>✨ О чём этот проект</h2>
+            <p>
+                Inner Horizons — это пространство, где ты можешь <strong>услышать себя</strong>.<br><br>
+                Мы создаём инструменты, которые помогают заглянуть внутрь: через письма из будущего, через отражения зеркал, через разговор с прошлым.<br><br>
+                <span class="muted">Это не гадание. Это встреча с собой.</span>
+            </p>
+        </section>
 
-<script>
-    function toggleTheme() {
-        document.body.classList.toggle('light');
-    }
-</script>
+        <footer class="footer">
+            <span>© 2026 Inner Horizons</span>
+            <span>
+                <a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a>
+            </span>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+        }
+    </script>
 </body>
 </html>
