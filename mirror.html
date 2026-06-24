@@ -5,14 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Зеркало души — Inner Horizons</title>
     <style>
-        /* ===== ОБЩИЕ СТИЛИ ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: radial-gradient(ellipse at 50% 0%, #0e0f1a, #040508);
+            background: radial-gradient(ellipse at 50% 0%, #151e2d, #0a0e14);
             min-height: 100vh;
             font-family: 'Georgia', serif;
             color: #ece3d7;
@@ -25,11 +20,11 @@
         .container {
             max-width: 900px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(2px);
             border-radius: 56px;
             padding: 40px 45px 30px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
         .header {
@@ -65,42 +60,25 @@
             border-bottom: 1px solid transparent;
             padding-bottom: 4px;
         }
-        .nav a:hover,
-        .nav a.active {
-            color: #f5d7b3;
-            border-bottom-color: #f5d7b3;
-        }
-
-        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-        .mirror-content {
+        .nav a:hover { color: #f5d7b3; border-bottom-color: #f5d7b3; }
+        .content {
+            padding: 30px 10px;
             text-align: center;
-            padding: 20px 10px 10px;
         }
-        .mirror-content .greeting {
-            font-size: 20px;
-            color: #b3a89c;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            line-height: 1.8;
-            font-style: italic;
-            opacity: 0.7;
-        }
-        .mirror-content h1 {
-            font-size: 44px;
+        .content h1 {
+            font-size: 38px;
             font-weight: 400;
             color: #f5d7b3;
             margin-bottom: 8px;
-            letter-spacing: 2px;
         }
-        .mirror-content .sub {
-            color: #8f847a;
-            font-size: 16px;
+        .content .sub {
+            color: #a89f94;
+            font-size: 17px;
+            font-style: italic;
             margin-bottom: 30px;
         }
-
-        /* ===== ОБЛАСТЬ ЗАГРУЗКИ ФОТО ===== */
         .upload-area {
-            border: 2px dashed rgba(245, 215, 179, 0.15);
+            border: 2px dashed rgba(245, 215, 179, 0.2);
             border-radius: 32px;
             padding: 40px 20px;
             margin: 10px auto 30px;
@@ -114,22 +92,9 @@
             border-color: rgba(245, 215, 179, 0.4);
             background: rgba(255, 255, 255, 0.04);
         }
-        .upload-area .icon {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 10px;
-            opacity: 0.6;
-        }
-        .upload-area p {
-            color: #b3a89c;
-            font-size: 16px;
-            margin: 0;
-        }
-        .upload-area .hint {
-            color: #6a6258;
-            font-size: 13px;
-            margin-top: 6px;
-        }
+        .upload-area .icon { font-size: 40px; display: block; margin-bottom: 10px; opacity: 0.6; }
+        .upload-area p { color: #b3a89c; font-size: 16px; }
+        .upload-area .hint { color: #6a6258; font-size: 13px; margin-top: 6px; }
         .upload-area input[type="file"] {
             position: absolute;
             top: 0;
@@ -147,8 +112,6 @@
             display: none;
             border: 2px solid rgba(245, 215, 179, 0.2);
         }
-
-        /* ===== КНОПКА ===== */
         .btn {
             padding: 16px 56px;
             background: #f5d7b3;
@@ -158,29 +121,17 @@
             font-size: 19px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: 0.3s;
             font-family: 'Georgia', serif;
             box-shadow: 0 8px 30px rgba(245, 215, 179, 0.05);
-            margin: 10px 0 20px;
         }
-        .btn:hover {
-            background: #ffebd0;
-            transform: scale(1.02);
-            box-shadow: 0 12px 40px rgba(245, 215, 179, 0.1);
-        }
-        .btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* ===== РЕЗУЛЬТАТ ===== */
+        .btn:hover { background: #ffebd0; transform: scale(1.02); box-shadow: 0 12px 40px rgba(245, 215, 179, 0.1); }
+        .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
         .result {
             margin-top: 30px;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 32px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 28px;
             border-left: 4px solid #f5d7b3;
             display: none;
             animation: fadeIn 0.8s ease;
@@ -194,32 +145,22 @@
             box-shadow: 0 0 60px rgba(245, 215, 179, 0.1);
             transition: 0.5s ease;
         }
-        .result h2 {
-            color: #f5d7b3;
-            font-weight: 400;
-            font-size: 22px;
-            margin-bottom: 12px;
+        .result h2 { color: #f5d7b3; font-weight: 400; font-size: 24px; margin-bottom: 12px; }
+        .result p { color: #cdc3b7; font-size: 18px; line-height: 1.8; white-space: pre-wrap; max-width: 600px; margin: 0 auto; }
+        .btn-back {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #b3a89c;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            font-size: 15px;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            transition: 0.3s;
         }
-        .result p {
-            color: #cdc3b7;
-            font-size: 18px;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== ПОДВАЛ ===== */
+        .btn-back:hover { background: rgba(255, 255, 255, 0.08); color: #f5d7b3; }
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -231,181 +172,134 @@
             font-size: 14px;
             color: #6a6258;
         }
-        .footer a {
-            color: #b3a89c;
-            text-decoration: none;
-            transition: 0.25s ease;
-        }
-        .footer a:hover {
-            color: #f5d7b3;
-        }
-
-        /* ===== АДАПТИВ ===== */
+        .footer a { color: #b3a89c; text-decoration: none; transition: 0.25s ease; }
+        .footer a:hover { color: #f5d7b3; }
         @media (max-width: 700px) {
-            .container {
-                padding: 24px 18px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .mirror-content h1 {
-                font-size: 32px;
-            }
-            .upload-area {
-                padding: 30px 20px;
-            }
-            .btn {
-                padding: 14px 36px;
-                font-size: 17px;
-            }
+            .container { padding: 24px 18px; }
+            .content h1 { font-size: 28px; }
+            .upload-area { padding: 30px 20px; }
+            .btn { padding: 14px 36px; font-size: 17px; }
         }
-        .fade-in {
-            animation: fadeIn 0.8s ease forwards;
-        }
-        .delay-1 {
-            animation-delay: 0.1s;
-        }
-        .delay-2 {
-            animation-delay: 0.2s;
-        }
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-    <div class="container fade-in">
-        <!-- ШАПКА -->
-        <header class="header">
-            <div class="logo">
-                <span class="icon">✧</span> Inner<span>Horizons</span>
-            </div>
-            <nav class="nav">
-                <a href="index.html">Главная</a>
-                <a href="about.html">О нас</a>
-                <a href="cabinet.html">Кабинет</a>
-                <a href="mirror.html" class="active">Зеркало</a>
-            </nav>
-        </header>
+<div class="container fade-in">
+    <header class="header">
+        <div class="logo"><span class="icon">✧</span> Inner<span>Horizons</span></div>
+        <nav class="nav">
+            <a href="index.html">Главная</a>
+            <a href="about.html">О нас</a>
+            <a href="cabinet.html">Кабинет</a>
+        </nav>
+    </header>
 
-        <!-- ОСНОВНОЙ БЛОК -->
-        <section class="mirror-content">
-            <h1>🪞 Зеркало души</h1>
-            <div class="sub">Пространство тишины, где ты можешь услышать себя</div>
-            <div class="greeting">
-                «Закрой глаза на мгновение. Когда откроешь — ты встретишься с собой.»
-            </div>
+    <section class="content">
+        <h1>🪞 Зеркало души</h1>
+        <div class="sub">Пространство тишины, где ты можешь встретиться с собой</div>
+        <p style="color: #b3a89c; font-size: 16px; max-width: 500px; margin: 0 auto 30px;">
+            «Закрой глаза на мгновение. Когда откроешь — ты увидишь себя настоящего.»
+        </p>
 
-            <!-- ОБЛАСТЬ ЗАГРУЗКИ -->
-            <div class="upload-area" id="uploadArea">
-                <span class="icon">🪞</span>
-                <p>Нажми, чтобы выбрать фото</p>
-                <span class="hint">или перетащи сюда</span>
-                <input type="file" id="photoInput" accept="image/*" />
-                <img class="preview" id="preview" alt="Предпросмотр" />
-            </div>
+        <div class="upload-area" id="uploadArea">
+            <span class="icon">🪞</span>
+            <p>Нажми, чтобы выбрать фото</p>
+            <span class="hint">или перетащи сюда</span>
+            <input type="file" id="photoInput" accept="image/*" />
+            <img class="preview" id="preview" alt="Предпросмотр" />
+        </div>
 
-            <!-- КНОПКА -->
-            <button class="btn" id="analyzeBtn" disabled>Заглянуть в зеркало</button>
+        <button class="btn" id="analyzeBtn" disabled>Заглянуть в зеркало</button>
 
-            <!-- РЕЗУЛЬТАТ -->
-            <div class="result" id="resultBlock">
-                <div class="visual" id="colorVisual"></div>
-                <h2>✧ Ты увидела</h2>
-                <p id="resultText"></p>
-            </div>
-        </section>
+        <div class="result" id="resultBlock">
+            <div class="visual" id="colorVisual"></div>
+            <h2>✧ Ты увидела</h2>
+            <p id="resultText"></p>
+        </div>
 
-        <!-- ПОДВАЛ -->
-        <footer class="footer">
-            <span>© 2026 Inner Horizons</span>
-            <span>
-                <a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a>
-            </span>
-        </footer>
-    </div>
+        <a href="cabinet.html" class="btn-back">← Вернуться в кабинет</a>
+    </section>
 
-    <script>
-        // ============================================================
-        // === ЛОГИКА «ЗЕРКАЛА ДУШИ» ===
-        // ============================================================
+    <footer class="footer">
+        <span>© 2026 Inner Horizons</span>
+        <span><a href="mailto:olga696.olga@yandex.ru">olga696.olga@yandex.ru</a></span>
+    </footer>
+</div>
 
-        const uploadArea = document.getElementById('uploadArea');
-        const photoInput = document.getElementById('photoInput');
-        const preview = document.getElementById('preview');
-        const analyzeBtn = document.getElementById('analyzeBtn');
-        const resultBlock = document.getElementById('resultBlock');
-        const resultText = document.getElementById('resultText');
-        const colorVisual = document.getElementById('colorVisual');
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const photoInput = document.getElementById('photoInput');
+    const preview = document.getElementById('preview');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const resultBlock = document.getElementById('resultBlock');
+    const resultText = document.getElementById('resultText');
+    const colorVisual = document.getElementById('colorVisual');
 
-        // ОТОБРАЖЕНИЕ ПРЕДПРОСМОТРА
-        photoInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    preview.src = event.target.result;
-                    preview.style.display = 'block';
-                    analyzeBtn.disabled = false;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // АНАЛИЗ (ИМИТАЦИЯ)
-        analyzeBtn.addEventListener('click', function() {
-            if (analyzeBtn.disabled) return;
-
-            analyzeBtn.disabled = true;
-            analyzeBtn.textContent = 'Смотрю в зеркало...';
-
-            // Имитация задержки работы ИИ
-            setTimeout(function() {
-                const messages = [
-                    'Ты устала, но в тебе есть свет, который не гаснет. Посмотри на него. Он всегда был с тобой.',
-                    'В твоих глазах — глубина, которую ты редко показываешь миру. Она говорит о том, что ты прошла через многое. И ты стала сильнее.',
-                    'Ты ищешь тишину, но она уже есть внутри. Просто остановись. Услышь её. Это твой голос.',
-                    'Ты носишь в себе тепло, которое не всегда замечаешь. Но оно есть. Оно согревает тебя даже в самые трудные дни.',
-                    'Ты видишь себя — и это первый шаг к принятию. Ты достаточно. Ты ценна. Ты — есть.'
-                ];
-                const colors = [
-                    'radial-gradient(circle, #f5d7b3, #8f847a)',
-                    'radial-gradient(circle, #b8a6d9, #5b4a7a)',
-                    'radial-gradient(circle, #7ddf9a, #2a6a3a)',
-                    'radial-gradient(circle, #f5a8a8, #7a3a3a)',
-                    'radial-gradient(circle, #a8d4f5, #2a4a6a)'
-                ];
-                const randomIndex = Math.floor(Math.random() * messages.length);
-                resultText.textContent = messages[randomIndex];
-                colorVisual.style.background = colors[randomIndex];
-                resultBlock.style.display = 'block';
-                resultBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
+    photoInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                preview.src = event.target.result;
+                preview.style.display = 'block';
                 analyzeBtn.disabled = false;
-                analyzeBtn.textContent = 'Заглянуть в зеркало';
-            }, 2000);
-        });
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
-        // ПЕРЕТАСКИВАНИЕ ФАЙЛА
-        uploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.style.borderColor = 'rgba(245, 215, 179, 0.6)';
-            this.style.background = 'rgba(255, 255, 255, 0.06)';
-        });
-        uploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.style.borderColor = 'rgba(245, 215, 179, 0.15)';
-            this.style.background = 'rgba(255, 255, 255, 0.02)';
-        });
-        uploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.style.borderColor = 'rgba(245, 215, 179, 0.15)';
-            this.style.background = 'rgba(255, 255, 255, 0.02)';
+    analyzeBtn.addEventListener('click', function() {
+        if (analyzeBtn.disabled) return;
+        analyzeBtn.disabled = true;
+        analyzeBtn.textContent = 'Смотрю в зеркало...';
 
-            const files = e.dataTransfer.files;
-            if (files.length > 0 && files[0].type.startsWith('image/')) {
-                photoInput.files = files;
-                photoInput.dispatchEvent(new Event('change'));
-            }
-        });
-    </script>
+        setTimeout(function() {
+            const messages = [
+                'Ты устала, но в тебе есть свет, который не гаснет. Посмотри на него. Он всегда был с тобой.',
+                'В твоих глазах — глубина, которую ты редко показываешь миру. Она говорит о том, что ты прошла через многое. И ты стала сильнее.',
+                'Ты ищешь тишину, но она уже есть внутри. Просто остановись. Услышь её. Это твой голос.',
+                'Ты носишь в себе тепло, которое не всегда замечаешь. Но оно есть. Оно согревает тебя даже в самые трудные дни.',
+                'Ты видишь себя — и это первый шаг к принятию. Ты достаточно. Ты ценна. Ты — есть.'
+            ];
+            const colors = [
+                'radial-gradient(circle, #f5d7b3, #8f847a)',
+                'radial-gradient(circle, #b8a6d9, #5b4a7a)',
+                'radial-gradient(circle, #7ddf9a, #2a6a3a)',
+                'radial-gradient(circle, #f5a8a8, #7a3a3a)',
+                'radial-gradient(circle, #a8d4f5, #2a4a6a)'
+            ];
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            resultText.textContent = messages[randomIndex];
+            colorVisual.style.background = colors[randomIndex];
+            resultBlock.style.display = 'block';
+            resultBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = 'Заглянуть в зеркало';
+        }, 2000);
+    });
+
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.borderColor = 'rgba(245, 215, 179, 0.6)';
+        this.style.background = 'rgba(255, 255, 255, 0.06)';
+    });
+    uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.borderColor = 'rgba(245, 215, 179, 0.2)';
+        this.style.background = 'rgba(255, 255, 255, 0.02)';
+    });
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.borderColor = 'rgba(245, 215, 179, 0.2)';
+        this.style.background = 'rgba(255, 255, 255, 0.02)';
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].type.startsWith('image/')) {
+            photoInput.files = files;
+            photoInput.dispatchEvent(new Event('change'));
+        }
+    });
+</script>
 </body>
 </html>
