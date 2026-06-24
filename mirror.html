@@ -113,23 +113,6 @@
         .welcome-block .btn-start:hover {
             background: rgba(245,215,179,0.2);
         }
-        .welcome-block .btn-pay {
-            margin-top: 12px;
-            padding: 12px 40px;
-            background: rgba(245,215,179,0.15);
-            color: #f5d7b3;
-            border: 1px solid rgba(245,215,179,0.3);
-            border-radius: 40px;
-            font-size: 17px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Georgia', serif;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .welcome-block .btn-pay:hover {
-            background: rgba(245,215,179,0.25);
-        }
         .action-block {
             display: none;
         }
@@ -155,6 +138,12 @@
             transition: 0.3s ease;
             cursor: pointer;
             position: relative;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .upload-area.active {
+            opacity: 1;
+            pointer-events: all;
         }
         .upload-area:hover {
             border-color: rgba(245, 215, 179, 0.4);
@@ -184,6 +173,12 @@
             margin: 20px auto 30px;
             max-width: 500px;
             text-align: left;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .question-input.active {
+            opacity: 1;
+            pointer-events: all;
         }
         .question-input label {
             display: block;
@@ -229,6 +224,23 @@
         }
         .btn:hover { background: #ffebd0; transform: scale(1.02); box-shadow: 0 12px 40px rgba(245, 215, 179, 0.1); }
         .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-pay {
+            margin-top: 20px;
+            padding: 14px 48px;
+            background: rgba(245,215,179,0.15);
+            color: #f5d7b3;
+            border: 1px solid rgba(245,215,179,0.3);
+            border-radius: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-pay:hover {
+            background: rgba(245,215,179,0.25);
+        }
         .result {
             margin-top: 30px;
             padding: 30px;
@@ -321,13 +333,9 @@
                 Это не про красоту. Это про встречу с собой.
             </p>
             <button class="btn-start" onclick="startMirror()">🌿 Продолжить</button>
-            <br>
-            <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=500&label=mirror" target="_blank" class="btn-pay">
-                💳 Оплатить 500 ₽
-            </a>
         </div>
 
-        <!-- ===== ДЕЙСТВИЯ ===== -->
+        <!-- ===== ДЕЙСТВИЯ (ЗАБЛОКИРОВАНЫ ДО ОПЛАТЫ) ===== -->
         <div id="actionBlock" class="action-block">
             <div class="instruction">
                 <strong>🪞 Как это работает:</strong><br>
@@ -336,21 +344,28 @@
                 3. Нажми «Заглянуть в зеркало» — и получи отражение своего состояния.
             </div>
 
-            <div class="upload-area" id="uploadArea">
-                <span class="icon">🪞</span>
-                <p>Нажми, чтобы выбрать фото</p>
-                <span class="hint">или перетащи сюда</span>
-                <input type="file" id="photoInput" accept="image/*" />
-                <img class="preview" id="preview" alt="Предпросмотр" />
-            </div>
+            <!-- ЗАБЛОКИРОВАННАЯ ОБЛАСТЬ -->
+            <div id="lockedArea">
+                <div class="upload-area" id="uploadArea">
+                    <span class="icon">🪞</span>
+                    <p>Нажми, чтобы выбрать фото</p>
+                    <span class="hint">или перетащи сюда</span>
+                    <input type="file" id="photoInput" accept="image/*" />
+                    <img class="preview" id="preview" alt="Предпросмотр" />
+                </div>
 
-            <div class="question-input">
-                <label for="questionInput">🌿 Что ты хочешь увидеть в себе сегодня?</label>
-                <textarea id="questionInput" placeholder="Например: «Я чувствую усталость, но не знаю, что делать» или «Что скрывается за моей улыбкой?»"></textarea>
-                <div class="hint">Этот вопрос поможет зеркалу показать тебе то, что важно именно сейчас</div>
-            </div>
+                <div class="question-input" id="questionInputBlock">
+                    <label for="questionInput">🌿 Что ты хочешь увидеть в себе сегодня?</label>
+                    <textarea id="questionInput" placeholder="Например: «Я чувствую усталость, но не знаю, что делать» или «Что скрывается за моей улыбкой?»"></textarea>
+                    <div class="hint">Этот вопрос поможет зеркалу показать тебе то, что важно именно сейчас</div>
+                </div>
 
-            <button class="btn" id="analyzeBtn" disabled>Заглянуть в зеркало</button>
+                <button class="btn" id="analyzeBtn" disabled>Заглянуть в зеркало</button>
+                <br>
+                <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=500&label=mirror" target="_blank" class="btn-pay" id="payBtn">
+                    💳 Оплатить 500 ₽
+                </a>
+            </div>
 
             <div class="result" id="resultBlock">
                 <div class="visual" id="colorVisual"></div>
@@ -372,12 +387,27 @@
 </div>
 
 <script>
+    // ===== ОТОБРАЖЕНИЕ БЛОКА =====
     function startMirror() {
         document.getElementById('welcomeBlock').style.display = 'none';
         document.getElementById('actionBlock').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ===== ЛОГИКА ОПЛАТЫ (ИМИТАЦИЯ) =====
+    document.getElementById('payBtn').addEventListener('click', function(e) {
+        // После оплаты разблокируем доступ (в реальном проекте — проверка через API)
+        setTimeout(function() {
+            document.getElementById('uploadArea').classList.add('active');
+            document.getElementById('questionInputBlock').classList.add('active');
+            document.getElementById('analyzeBtn').disabled = false;
+            document.getElementById('payBtn').textContent = '✅ Оплачено';
+            document.getElementById('payBtn').style.opacity = '0.6';
+            document.getElementById('payBtn').style.pointerEvents = 'none';
+        }, 3000);
+    });
+
+    // ===== ОСТАЛЬНАЯ ЛОГИКА =====
     const uploadArea = document.getElementById('uploadArea');
     const photoInput = document.getElementById('photoInput');
     const preview = document.getElementById('preview');
@@ -395,7 +425,9 @@
             reader.onload = function(event) {
                 preview.src = event.target.result;
                 preview.style.display = 'block';
-                analyzeBtn.disabled = false;
+                if (!analyzeBtn.disabled) {
+                    // Кнопка уже активна
+                }
             };
             reader.readAsDataURL(file);
         }
