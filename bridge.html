@@ -77,6 +77,45 @@
             font-style: italic;
             margin-bottom: 10px;
         }
+        .welcome-block {
+            background: rgba(245,215,179,0.06);
+            border-radius: 18px;
+            padding: 30px 24px;
+            margin: 10px 0 30px;
+            border-left: 3px solid #f5d7b3;
+            text-align: center;
+        }
+        .welcome-block h2 {
+            font-size: 22px;
+            font-weight: 400;
+            color: #f5d7b3;
+            margin-bottom: 12px;
+        }
+        .welcome-block p {
+            color: #ddd6cc;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .welcome-block .btn-start {
+            margin-top: 16px;
+            padding: 12px 40px;
+            background: rgba(245,215,179,0.1);
+            color: #f5d7b3;
+            border: 1px solid rgba(245,215,179,0.2);
+            border-radius: 40px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        .welcome-block .btn-start:hover {
+            background: rgba(245,215,179,0.2);
+        }
+        .action-block {
+            display: none;
+        }
         .instruction {
             background: rgba(245,215,179,0.06);
             border-radius: 18px;
@@ -89,7 +128,6 @@
             border-left: 3px solid #f5d7b3;
         }
         .instruction strong { color: #f5d7b3; }
-        .instruction .emoji { margin-right: 6px; }
         .upload-area {
             border: 2px dashed rgba(245, 215, 179, 0.2);
             border-radius: 32px;
@@ -100,6 +138,12 @@
             transition: 0.3s ease;
             cursor: pointer;
             position: relative;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .upload-area.active {
+            opacity: 1;
+            pointer-events: all;
         }
         .upload-area:hover {
             border-color: rgba(245, 215, 179, 0.4);
@@ -129,6 +173,12 @@
             margin: 20px auto 30px;
             max-width: 500px;
             text-align: left;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .question-input.active {
+            opacity: 1;
+            pointer-events: all;
         }
         .question-input label {
             display: block;
@@ -174,6 +224,23 @@
         }
         .btn:hover { background: #ffebd0; transform: scale(1.02); box-shadow: 0 12px 40px rgba(245, 215, 179, 0.1); }
         .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-pay {
+            margin-top: 20px;
+            padding: 14px 48px;
+            background: rgba(245,215,179,0.15);
+            color: #f5d7b3;
+            border: 1px solid rgba(245,215,179,0.3);
+            border-radius: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-pay:hover {
+            background: rgba(245,215,179,0.25);
+        }
         .result {
             margin-top: 30px;
             padding: 30px;
@@ -227,6 +294,7 @@
             .content h1 { font-size: 28px; }
             .upload-area { padding: 20px 15px; }
             .btn { padding: 14px 36px; font-size: 17px; }
+            .welcome-block { padding: 20px 16px; }
         }
         .fade-in { animation: fadeIn 0.8s ease forwards; }
         @keyframes fadeIn { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -247,36 +315,55 @@
         <h1>🌉 Мост между поколениями</h1>
         <div class="sub">Разговор с прошлым, который исцеляет</div>
 
-        <!-- ===== ИНСТРУКЦИЯ ===== -->
-        <div class="instruction">
-            <span class="emoji">🌉</span> <strong>Как это работает:</strong><br>
-            1. Загрузи фото, письмо или просто напиши имя близкого человека.<br>
-            2. Напиши вопрос или слово, которое хочешь передать.<br>
-            3. Нажми «Пройти по мосту» — и получи отклик от памяти.
+        <!-- ===== ПРИВЕТСТВИЕ ===== -->
+        <div id="welcomeBlock" class="welcome-block fade-in delay-1">
+            <h2>✨ Здравствуй, любопытный друг</h2>
+            <p>
+                Ты стоишь на мосту между прошлым и настоящим.<br><br>
+                Здесь ты можешь обратиться к памяти, которая ждала, чтобы её услышали.<br>
+                Загрузи фото, письмо или напиши имя близкого человека — и мост ответит тебе теплом.
+            </p>
+            <button class="btn-start" onclick="startBridge()">🌿 Продолжить</button>
         </div>
 
-        <div class="upload-area" id="uploadArea">
-            <span class="icon">🕊️</span>
-            <p>Нажми, чтобы загрузить фото или письмо</p>
-            <span class="hint">или перетащи сюда</span>
-            <input type="file" id="fileInput" accept="image/*, .txt, .pdf" />
-            <div class="preview" id="preview" style="display:none; font-size:14px; color:#b3a89c;">Файл загружен</div>
-        </div>
+        <!-- ===== ДЕЙСТВИЯ (ЗАБЛОКИРОВАНЫ ДО ОПЛАТЫ) ===== -->
+        <div id="actionBlock" class="action-block">
+            <div class="instruction">
+                <strong>🌉 Как это работает:</strong><br>
+                1. Загрузи фото, письмо или просто напиши имя близкого человека.<br>
+                2. Напиши вопрос или слово, которое хочешь передать.<br>
+                3. Нажми «Пройти по мосту» — и получи отклик от памяти.
+            </div>
 
-        <!-- ===== ЖИВАЯ СТРОКА ДЛЯ ВОПРОСА ===== -->
-        <div class="question-input">
-            <label for="questionInput">🌿 Что ты хочешь сказать или спросить у прошлого?</label>
-            <textarea id="questionInput" placeholder="Например: «Мама, я хочу сказать тебе спасибо» или «Что бы ты посоветовала мне сейчас?»"></textarea>
-            <div class="hint">Или просто напиши имя близкого человека</div>
-        </div>
+            <!-- ЗАБЛОКИРОВАННАЯ ОБЛАСТЬ -->
+            <div id="lockedArea">
+                <div class="upload-area" id="uploadArea">
+                    <span class="icon">🕊️</span>
+                    <p>Нажми, чтобы загрузить фото или письмо</p>
+                    <span class="hint">или перетащи сюда</span>
+                    <input type="file" id="fileInput" accept="image/*, .txt, .pdf" />
+                    <div class="preview" id="preview" style="display:none; font-size:14px; color:#b3a89c;">Файл загружен</div>
+                </div>
 
-        <button class="btn" id="analyzeBtn">Пройти по мосту</button>
+                <div class="question-input" id="questionInputBlock">
+                    <label for="questionInput">🌿 Что ты хочешь сказать или спросить у прошлого?</label>
+                    <textarea id="questionInput" placeholder="Например: «Мама, я хочу сказать тебе спасибо» или «Что бы ты посоветовала мне сейчас?»"></textarea>
+                    <div class="hint">Или просто напиши имя близкого человека</div>
+                </div>
 
-        <div class="result" id="resultBlock">
-            <h2>✧ Отклик памяти</h2>
-            <p id="resultText"></p>
-            <div class="reflection" id="reflectionBlock">
-                <strong>🕊️ Отражение:</strong> <span id="reflectionText">Здесь будет ответ от прошлого.</span>
+                <button class="btn" id="analyzeBtn" disabled>Пройти по мосту</button>
+                <br>
+                <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=1500&label=bridge" target="_blank" class="btn-pay" id="payBtn">
+                    💳 Оплатить 1500 ₽
+                </a>
+            </div>
+
+            <div class="result" id="resultBlock">
+                <h2>✧ Отклик памяти</h2>
+                <p id="resultText"></p>
+                <div class="reflection" id="reflectionBlock">
+                    <strong>🕊️ Отражение:</strong> <span id="reflectionText">Здесь будет ответ от прошлого.</span>
+                </div>
             </div>
         </div>
 
@@ -290,6 +377,27 @@
 </div>
 
 <script>
+    // ===== ОТОБРАЖЕНИЕ БЛОКА =====
+    function startBridge() {
+        document.getElementById('welcomeBlock').style.display = 'none';
+        document.getElementById('actionBlock').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ===== ЛОГИКА ОПЛАТЫ (ИМИТАЦИЯ) =====
+    document.getElementById('payBtn').addEventListener('click', function(e) {
+        // После оплаты разблокируем доступ (в реальном проекте — проверка через API)
+        setTimeout(function() {
+            document.getElementById('uploadArea').classList.add('active');
+            document.getElementById('questionInputBlock').classList.add('active');
+            document.getElementById('analyzeBtn').disabled = false;
+            document.getElementById('payBtn').textContent = '✅ Оплачено';
+            document.getElementById('payBtn').style.opacity = '0.6';
+            document.getElementById('payBtn').style.pointerEvents = 'none';
+        }, 3000);
+    });
+
+    // ===== ОСТАЛЬНАЯ ЛОГИКА =====
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const preview = document.getElementById('preview');
@@ -299,7 +407,6 @@
     const questionInput = document.getElementById('questionInput');
     const reflectionText = document.getElementById('reflectionText');
 
-    // ЗАГРУЗКА ФАЙЛА
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
@@ -308,8 +415,8 @@
         }
     });
 
-    // ОТКЛИК ИИ
     analyzeBtn.addEventListener('click', function() {
+        if (analyzeBtn.disabled) return;
         analyzeBtn.disabled = true;
         analyzeBtn.textContent = 'Иду по мосту...';
 
@@ -357,7 +464,6 @@
         }, 2000);
     });
 
-    // ПЕРЕТАСКИВАНИЕ ФАЙЛА
     uploadArea.addEventListener('dragover', function(e) {
         e.preventDefault();
         this.style.borderColor = 'rgba(245, 215, 179, 0.6)';
