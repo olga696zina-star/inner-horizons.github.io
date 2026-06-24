@@ -60,10 +60,7 @@
             border-bottom: 1px solid transparent;
             padding-bottom: 4px;
         }
-        .nav a:hover, .nav a.active {
-            color: #f5d7b3;
-            border-bottom-color: #f5d7b3;
-        }
+        .nav a:hover { color: #f5d7b3; border-bottom-color: #f5d7b3; }
         .content {
             padding: 20px 10px 10px;
         }
@@ -454,7 +451,6 @@
         statusEl.className = 'status-message loading';
         statusEl.textContent = '⏳ Отправляю...';
         try {
-            // Имитация отправки (в реальности здесь будет код для отправки через ваш сервис)
             setTimeout(() => {
                 statusEl.className = 'status-message success';
                 statusEl.textContent = '✅ Письмо отправлено! Проверьте почту (и папку Спам).';
