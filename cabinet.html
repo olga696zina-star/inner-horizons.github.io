@@ -119,6 +119,7 @@
             border: 1px solid rgba(245, 215, 179, 0.2);
             transition: 0.3s;
             text-decoration: none;
+            cursor: pointer;
         }
         .project-card .btn-action:hover {
             background: rgba(245, 215, 179, 0.2);
@@ -129,6 +130,25 @@
         }
         .project-card .btn-action.free:hover {
             background: rgba(125, 223, 154, 0.1);
+        }
+        .yoomoney-btn {
+            margin-top: 14px;
+        }
+        .yoomoney-btn a {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+            background: rgba(245, 215, 179, 0.1);
+            color: #f5d7b3;
+            border: 1px solid rgba(245, 215, 179, 0.2);
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .yoomoney-btn a:hover {
+            background: rgba(245, 215, 179, 0.2);
         }
         .footer {
             margin-top: 40px;
@@ -184,23 +204,36 @@
     </section>
 
     <section class="projects">
+        <!-- ПИСЬМО ИЗ БУДУЩЕГО (БЕСПЛАТНО) -->
         <a href="letter.html" class="project-card">
             <span class="icon">✧</span>
             <h3>Письмо из будущего</h3>
             <p>Ты отвечаешь на вопросы — и нейросеть пишет письмо от тебя через 5 лет.</p>
             <span class="btn-action free">Начать диалог</span>
         </a>
-        <a href="mirror.html" class="project-card">
+
+        <!-- ЗЕРКАЛО ДУШИ (500 ₽) -->
+        <div class="project-card">
             <span class="icon">✦</span>
             <h3>Зеркало души</h3>
             <p>Пространство тишины. Встреча с собой через фото и отражение.</p>
-            <span class="btn-action">Встретиться с собой</span>
-        </a>
-        <div class="project-card" onclick="alert('🔒 Оплата: 1500 ₽. Доступ откроется после оплаты.')">
+            <div class="yoomoney-btn">
+                <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=500&label=mirror" target="_blank">
+                    💳 Оплатить 500 ₽
+                </a>
+            </div>
+        </div>
+
+        <!-- МОСТ МЕЖДУ ПОКОЛЕНИЯМИ (1500 ₽) -->
+        <div class="project-card">
             <span class="icon">✧</span>
             <h3>Мост между поколениями</h3>
             <p>Разговор с прошлым. Исцеление через память.</p>
-            <span class="btn-action">Пройти по мосту</span>
+            <div class="yoomoney-btn">
+                <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=1500&label=bridge" target="_blank">
+                    💳 Оплатить 1500 ₽
+                </a>
+            </div>
         </div>
     </section>
 
