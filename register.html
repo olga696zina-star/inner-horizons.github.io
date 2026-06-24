@@ -111,6 +111,24 @@
         }
         .notification strong { color: #f5d7b3; }
         .notification .emoji { font-size: 24px; display: block; margin-bottom: 8px; }
+        .btn-back {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 30px;
+            background: rgba(255,255,255,0.04);
+            color: #b3a89c;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 60px;
+            font-size: 15px;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-back:hover {
+            background: rgba(255,255,255,0.08);
+            color: #f5d7b3;
+            border-color: rgba(245,215,179,0.15);
+        }
     </style>
 </head>
 <body>
@@ -144,6 +162,9 @@
         На вашу почту <span id="userEmailDisplay"></span> отправлено письмо с подтверждением.<br />
         <span style="color: #a89f94; font-size: 14px;">Вы перенаправлены в личный кабинет через 3 секунды...</span>
     </div>
+
+    <!-- ===== КНОПКА ВОЗВРАТА НА ГЛАВНУЮ ===== -->
+    <a href="index.html" class="btn-back">← На главную</a>
 </div>
 
 <script>
