@@ -75,8 +75,21 @@
             color: #a89f94;
             font-size: 17px;
             font-style: italic;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
+        .instruction {
+            background: rgba(245,215,179,0.06);
+            border-radius: 18px;
+            padding: 18px 22px;
+            margin: 10px 0 30px;
+            text-align: left;
+            font-size: 15px;
+            color: #ddd6cc;
+            line-height: 1.7;
+            border-left: 3px solid #f5d7b3;
+        }
+        .instruction strong { color: #f5d7b3; }
+        .instruction .emoji { margin-right: 6px; }
         .upload-area {
             border: 2px dashed rgba(245, 215, 179, 0.2);
             border-radius: 32px;
@@ -111,6 +124,40 @@
             margin: 10px auto;
             display: none;
             border: 2px solid rgba(245, 215, 179, 0.2);
+        }
+        .question-input {
+            margin: 20px auto 30px;
+            max-width: 500px;
+            text-align: left;
+        }
+        .question-input label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #ddd6cc;
+        }
+        .question-input textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            color: #f0e9e0;
+            font-size: 16px;
+            font-family: 'Georgia', serif;
+            outline: none;
+            resize: vertical;
+            min-height: 60px;
+            transition: 0.3s;
+        }
+        .question-input textarea:focus {
+            border-color: #f5d7b3;
+            background: rgba(255,255,255,0.07);
+        }
+        .question-input .hint {
+            font-size: 13px;
+            color: #6a6258;
+            margin-top: 4px;
         }
         .btn {
             padding: 16px 56px;
@@ -147,6 +194,16 @@
         }
         .result h2 { color: #f5d7b3; font-weight: 400; font-size: 24px; margin-bottom: 12px; }
         .result p { color: #cdc3b7; font-size: 18px; line-height: 1.8; white-space: pre-wrap; max-width: 600px; margin: 0 auto; }
+        .result .reflection {
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: rgba(245,215,179,0.06);
+            border-radius: 16px;
+            text-align: left;
+            font-style: italic;
+            color: #ddd6cc;
+        }
+        .result .reflection strong { color: #f5d7b3; font-style: normal; }
         .btn-back {
             margin-top: 30px;
             display: inline-block;
@@ -198,9 +255,14 @@
     <section class="content">
         <h1>🪞 Зеркало души</h1>
         <div class="sub">Пространство тишины, где ты можешь встретиться с собой</div>
-        <p style="color: #b3a89c; font-size: 16px; max-width: 500px; margin: 0 auto 30px;">
-            «Закрой глаза на мгновение. Когда откроешь — ты увидишь себя настоящего.»
-        </p>
+
+        <!-- ===== ИНСТРУКЦИЯ ===== -->
+        <div class="instruction">
+            <span class="emoji">🪞</span> <strong>Как это работает:</strong><br>
+            1. Загрузи своё фото — это шаг доверия.<br>
+            2. Напиши вопрос или состояние, которое хочешь увидеть в себе сегодня (можно оставить пустым).<br>
+            3. Нажми «Заглянуть в зеркало» — и получи отражение своего состояния.
+        </div>
 
         <div class="upload-area" id="uploadArea">
             <span class="icon">🪞</span>
@@ -210,12 +272,22 @@
             <img class="preview" id="preview" alt="Предпросмотр" />
         </div>
 
+        <!-- ===== ЖИВАЯ СТРОКА ДЛЯ ВОПРОСА ===== -->
+        <div class="question-input">
+            <label for="questionInput">🌿 Что ты хочешь увидеть в себе сегодня?</label>
+            <textarea id="questionInput" placeholder="Например: «Я чувствую усталость, но не знаю, что делать» или «Что скрывается за моей улыбкой?»"></textarea>
+            <div class="hint">Этот вопрос поможет зеркалу показать тебе то, что важно именно сейчас</div>
+        </div>
+
         <button class="btn" id="analyzeBtn" disabled>Заглянуть в зеркало</button>
 
         <div class="result" id="resultBlock">
             <div class="visual" id="colorVisual"></div>
             <h2>✧ Ты увидела</h2>
             <p id="resultText"></p>
+            <div class="reflection" id="reflectionBlock">
+                <strong>🌿 Отражение:</strong> <span id="reflectionText">Здесь будет отклик на твой вопрос.</span>
+            </div>
         </div>
 
         <a href="cabinet.html" class="btn-back">← Вернуться в кабинет</a>
@@ -235,7 +307,10 @@
     const resultBlock = document.getElementById('resultBlock');
     const resultText = document.getElementById('resultText');
     const colorVisual = document.getElementById('colorVisual');
+    const questionInput = document.getElementById('questionInput');
+    const reflectionText = document.getElementById('reflectionText');
 
+    // ПРЕДПРОСМОТР ФОТО
     photoInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
@@ -249,19 +324,47 @@
         }
     });
 
+    // АНАЛИЗ (ИМИТАЦИЯ С УЧЁТОМ ВОПРОСА)
     analyzeBtn.addEventListener('click', function() {
         if (analyzeBtn.disabled) return;
         analyzeBtn.disabled = true;
         analyzeBtn.textContent = 'Смотрю в зеркало...';
 
         setTimeout(function() {
-            const messages = [
-                'Ты устала, но в тебе есть свет, который не гаснет. Посмотри на него. Он всегда был с тобой.',
-                'В твоих глазах — глубина, которую ты редко показываешь миру. Она говорит о том, что ты прошла через многое. И ты стала сильнее.',
-                'Ты ищешь тишину, но она уже есть внутри. Просто остановись. Услышь её. Это твой голос.',
-                'Ты носишь в себе тепло, которое не всегда замечаешь. Но оно есть. Оно согревает тебя даже в самые трудные дни.',
-                'Ты видишь себя — и это первый шаг к принятию. Ты достаточно. Ты ценна. Ты — есть.'
-            ];
+            const question = questionInput.value.trim() || 'просто увидеть себя';
+            
+            // ОТВЕТЫ С УЧЁТОМ ВОПРОСА
+            const responses = {
+                'усталость': 'Ты устала, но в тебе есть свет, который не гаснет. Эта усталость говорит не о слабости, а о том, как много ты отдаёшь. Попробуй позволить себе отдых без чувства вины.',
+                'улыбка': 'Твоя улыбка — это не просто маска. Это твой способ говорить миру: «Я справлюсь». Но за ней — глубина, которую ты редко показываешь. Ты имеешь право быть не только сильной, но и нежной.',
+                'страх': 'Страх, о котором ты спрашиваешь — это не враг. Это твой внутренний страж, который хочет защитить тебя. Поблагодари его и скажи: «Я готова идти дальше».'
+            };
+
+            let response = '';
+            let reflection = '';
+
+            // Ищем ключевое слово в вопросе
+            let found = false;
+            for (const [key, value] of Object.entries(responses)) {
+                if (question.toLowerCase().includes(key)) {
+                    response = value;
+                    reflection = 'Ты спросила о «' + key + '». Зеркало видит это и откликается:';
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                const defaultMessages = [
+                    'Ты смотришь на себя и видишь не просто лицо. Ты видишь историю, которую носишь в себе. Усталость в глазах говорит о том, как много ты прошла. Но в улыбке — надежда, которую ты не отпускаешь. Ты сильнее, чем кажется.',
+                    'В твоём взгляде — тишина. Но не пустая. Та, что говорит о глубине. Ты многое видишь, но не всё произносишь. Это зеркало показывает твою мудрость. Ты точно знаешь, кто ты есть.',
+                    'Ты смотришь на себя и видишь перемены. Не только внешние — те, что внутри. Ты становишься мягче и твёрже одновременно. Это взросление души. Ты на правильном пути.',
+                    'Это фото — не просто снимок. Это отражение твоей души в момент, когда она ищет себя. Ты уже нашла ответы, просто ещё не осознала этого. Позволь себе поверить.'
+                ];
+                response = defaultMessages[Math.floor(Math.random() * defaultMessages.length)];
+                reflection = 'Ты спросила: «' + question + '». Зеркало отвечает:';
+            }
+
             const colors = [
                 'radial-gradient(circle, #f5d7b3, #8f847a)',
                 'radial-gradient(circle, #b8a6d9, #5b4a7a)',
@@ -269,9 +372,10 @@
                 'radial-gradient(circle, #f5a8a8, #7a3a3a)',
                 'radial-gradient(circle, #a8d4f5, #2a4a6a)'
             ];
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            resultText.textContent = messages[randomIndex];
-            colorVisual.style.background = colors[randomIndex];
+
+            resultText.textContent = response;
+            reflectionText.textContent = reflection;
+            colorVisual.style.background = colors[Math.floor(Math.random() * colors.length)];
             resultBlock.style.display = 'block';
             resultBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -280,6 +384,7 @@
         }, 2000);
     });
 
+    // ПЕРЕТАСКИВАНИЕ ФАЙЛА
     uploadArea.addEventListener('dragover', function(e) {
         e.preventDefault();
         this.style.borderColor = 'rgba(245, 215, 179, 0.6)';
