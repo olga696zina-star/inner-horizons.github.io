@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
@@ -77,6 +77,8 @@
             font-style: italic;
             margin-bottom: 10px;
         }
+
+        /* ===== БЛОК ПРИВЕТСТВИЯ ===== */
         .welcome-block {
             background: rgba(245,215,179,0.06);
             border-radius: 18px;
@@ -113,6 +115,8 @@
         .welcome-block .btn-start:hover {
             background: rgba(245,215,179,0.2);
         }
+
+        /* ===== БЛОК ДЕЙСТВИЙ ===== */
         .action-block {
             display: none;
         }
@@ -128,6 +132,44 @@
             border-left: 3px solid #f5d7b3;
         }
         .instruction strong { color: #f5d7b3; }
+
+        /* ===== ПРЕДУПРЕЖДЕНИЕ ===== */
+        .disclaimer {
+            background: rgba(200, 100, 100, 0.08);
+            border: 1px solid rgba(200, 100, 100, 0.2);
+            border-radius: 18px;
+            padding: 24px 22px;
+            margin: 20px 0 30px;
+            text-align: left;
+        }
+        .disclaimer strong {
+            color: #f5a8a8;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .disclaimer p {
+            color: #ddd6cc;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .disclaimer .btn-accept {
+            padding: 10px 32px;
+            background: rgba(245,215,179,0.1);
+            color: #f5d7b3;
+            border: 1px solid rgba(245,215,179,0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        .disclaimer .btn-accept:hover {
+            background: rgba(245,215,179,0.2);
+        }
+
+        /* ===== ЗАГРУЗКА ФАЙЛОВ ===== */
         .upload-area {
             border: 2px dashed rgba(245, 215, 179, 0.2);
             border-radius: 32px;
@@ -169,6 +211,8 @@
             display: none;
             border: 2px solid rgba(245, 215, 179, 0.2);
         }
+
+        /* ===== ПОЛЕ ДЛЯ ВОПРОСА ===== */
         .question-input {
             margin: 20px auto 30px;
             max-width: 500px;
@@ -209,6 +253,8 @@
             color: #6a6258;
             margin-top: 4px;
         }
+
+        /* ===== КНОПКИ ===== */
         .btn {
             padding: 16px 56px;
             background: #f5d7b3;
@@ -224,6 +270,7 @@
         }
         .btn:hover { background: #ffebd0; transform: scale(1.02); box-shadow: 0 12px 40px rgba(245, 215, 179, 0.1); }
         .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+
         .btn-pay {
             margin-top: 20px;
             padding: 14px 48px;
@@ -241,6 +288,8 @@
         .btn-pay:hover {
             background: rgba(245,215,179,0.25);
         }
+
+        /* ===== РЕЗУЛЬТАТ ===== */
         .result {
             margin-top: 30px;
             padding: 30px;
@@ -262,6 +311,7 @@
             color: #ddd6cc;
         }
         .result .reflection strong { color: #f5d7b3; font-style: normal; }
+
         .btn-back {
             margin-top: 30px;
             display: inline-block;
@@ -276,6 +326,7 @@
             transition: 0.3s;
         }
         .btn-back:hover { background: rgba(255, 255, 255, 0.08); color: #f5d7b3; }
+
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -289,6 +340,7 @@
         }
         .footer a { color: #b3a89c; text-decoration: none; transition: 0.25s ease; }
         .footer a:hover { color: #f5d7b3; }
+
         @media (max-width: 700px) {
             .container { padding: 24px 18px; }
             .content h1 { font-size: 28px; }
@@ -326,43 +378,58 @@
             <button class="btn-start" onclick="startBridge()">🌿 Продолжить</button>
         </div>
 
-        <!-- ===== ДЕЙСТВИЯ (ЗАБЛОКИРОВАНЫ ДО ОПЛАТЫ) ===== -->
+        <!-- ===== ДЕЙСТВИЯ ===== -->
         <div id="actionBlock" class="action-block">
-            <div class="instruction">
-                <strong>🌉 Как это работает:</strong><br>
-                1. Загрузи фото, письмо или просто напиши имя близкого человека.<br>
-                2. Напиши вопрос или слово, которое хочешь передать.<br>
-                3. Нажми «Пройти по мосту» — и получи отклик от памяти.
+            <!-- ===== ПРЕДУПРЕЖДЕНИЕ ===== -->
+            <div id="disclaimerBlock" class="disclaimer">
+                <strong>⚠️ Важное предупреждение</strong>
+                <p>
+                    Этот проект использует искусственный интеллект для создания диалога с «отражением» памяти.<br>
+                    Он не заменяет профессиональную психологическую помощь.<br>
+                    Если вы чувствуете, что не готовы к этой встрече — отложите её.<br>
+                    <strong>Вы имеете право остановиться в любой момент.</strong>
+                </p>
+                <button class="btn-accept" onclick="acceptDisclaimer()">Я понимаю и хочу продолжить</button>
             </div>
 
-            <!-- ЗАБЛОКИРОВАННАЯ ОБЛАСТЬ -->
-            <div id="lockedArea">
-                <div class="upload-area" id="uploadArea">
-                    <span class="icon">🕊️</span>
-                    <p>Нажми, чтобы загрузить фото или письмо</p>
-                    <span class="hint">или перетащи сюда</span>
-                    <input type="file" id="fileInput" accept="image/*, .txt, .pdf" />
-                    <div class="preview" id="preview" style="display:none; font-size:14px; color:#b3a89c;">Файл загружен</div>
+            <!-- ===== ИНСТРУКЦИЯ (СКРЫТА ДО ПРИНЯТИЯ) ===== -->
+            <div id="mainContent" style="display: none;">
+                <div class="instruction">
+                    <strong>🌉 Как это работает:</strong><br>
+                    1. Загрузи фото, письмо или просто напиши имя близкого человека.<br>
+                    2. Напиши вопрос или слово, которое хочешь передать.<br>
+                    3. Нажми «Пройти по мосту» — и получи отклик от памяти.
                 </div>
 
-                <div class="question-input" id="questionInputBlock">
-                    <label for="questionInput">🌿 Что ты хочешь сказать или спросить у прошлого?</label>
-                    <textarea id="questionInput" placeholder="Например: «Мама, я хочу сказать тебе спасибо» или «Что бы ты посоветовала мне сейчас?»"></textarea>
-                    <div class="hint">Или просто напиши имя близкого человека</div>
+                <!-- ЗАБЛОКИРОВАННАЯ ОБЛАСТЬ -->
+                <div id="lockedArea">
+                    <div class="upload-area" id="uploadArea">
+                        <span class="icon">🕊️</span>
+                        <p>Нажми, чтобы загрузить фото или письмо</p>
+                        <span class="hint">или перетащи сюда</span>
+                        <input type="file" id="fileInput" accept="image/*, .txt, .pdf" />
+                        <div class="preview" id="preview" style="display:none; font-size:14px; color:#b3a89c;">Файл загружен</div>
+                    </div>
+
+                    <div class="question-input" id="questionInputBlock">
+                        <label for="questionInput">🌿 Что ты хочешь сказать или спросить у прошлого?</label>
+                        <textarea id="questionInput" placeholder="Например: «Мама, я хочу сказать тебе спасибо» или «Что бы ты посоветовала мне сейчас?»"></textarea>
+                        <div class="hint">Или просто напиши имя близкого человека</div>
+                    </div>
+
+                    <button class="btn" id="analyzeBtn" disabled>Пройти по мосту</button>
+                    <br>
+                    <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=1500&label=bridge" target="_blank" class="btn-pay" id="payBtn">
+                        💳 Оплатить 1500 ₽
+                    </a>
                 </div>
 
-                <button class="btn" id="analyzeBtn" disabled>Пройти по мосту</button>
-                <br>
-                <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=1500&label=bridge" target="_blank" class="btn-pay" id="payBtn">
-                    💳 Оплатить 1500 ₽
-                </a>
-            </div>
-
-            <div class="result" id="resultBlock">
-                <h2>✧ Отклик памяти</h2>
-                <p id="resultText"></p>
-                <div class="reflection" id="reflectionBlock">
-                    <strong>🕊️ Отражение:</strong> <span id="reflectionText">Здесь будет ответ от прошлого.</span>
+                <div class="result" id="resultBlock">
+                    <h2>✧ Отклик памяти</h2>
+                    <p id="resultText"></p>
+                    <div class="reflection" id="reflectionBlock">
+                        <strong>🕊️ Отражение:</strong> <span id="reflectionText">Здесь будет ответ от прошлого.</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -384,9 +451,15 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ===== ПРИНЯТИЕ ПРЕДУПРЕЖДЕНИЯ =====
+    function acceptDisclaimer() {
+        document.getElementById('disclaimerBlock').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     // ===== ЛОГИКА ОПЛАТЫ (ИМИТАЦИЯ) =====
     document.getElementById('payBtn').addEventListener('click', function(e) {
-        // После оплаты разблокируем доступ (в реальном проекте — проверка через API)
         setTimeout(function() {
             document.getElementById('uploadArea').classList.add('active');
             document.getElementById('questionInputBlock').classList.add('active');
@@ -422,7 +495,7 @@
 
         setTimeout(function() {
             const question = questionInput.value.trim() || 'передать тепло';
-            
+
             const responses = {
                 'мама': 'Мама видит тебя. Она гордится тобой. Ты носишь её тепло в себе — в улыбке, в доброте, в том, как ты заботишься о других. Она рядом, даже когда её нет.',
                 'папа': 'Папа смотрит на тебя с гордостью. Ты выросла сильной, но сохранила нежность. Он всегда верил в тебя — и сейчас верит.',
