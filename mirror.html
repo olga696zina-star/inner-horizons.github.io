@@ -324,9 +324,8 @@
         <h1>🪞 Зеркало души</h1>
         <div class="sub">Пространство тишины, где ты можешь встретиться с собой</div>
 
-        <!-- ===== ПРИВЕТСТВИЕ ===== -->
         <div id="welcomeBlock" class="welcome-block fade-in delay-1">
-            <h2>✨ Здравствуй, любопытный друг</h2>
+            <h2>✨ Здравствуй, ищущий</h2>
             <p>
                 Ты стоишь перед зеркалом, которое показывает не внешность, а состояние.<br><br>
                 Загрузи своё фото, задай вопрос — и зеркало ответит тебе тем, что ты носишь внутри.<br>
@@ -335,7 +334,6 @@
             <button class="btn-start" onclick="startMirror()">🌿 Продолжить</button>
         </div>
 
-        <!-- ===== ДЕЙСТВИЯ (ЗАБЛОКИРОВАНЫ ДО ОПЛАТЫ) ===== -->
         <div id="actionBlock" class="action-block">
             <div class="instruction">
                 <strong>🪞 Как это работает:</strong><br>
@@ -344,7 +342,6 @@
                 3. Нажми «Заглянуть в зеркало» — и получи отражение своего состояния.
             </div>
 
-            <!-- ЗАБЛОКИРОВАННАЯ ОБЛАСТЬ -->
             <div id="lockedArea">
                 <div class="upload-area" id="uploadArea">
                     <span class="icon">🪞</span>
@@ -362,8 +359,8 @@
 
                 <button class="btn" id="analyzeBtn" disabled>Заглянуть в зеркало</button>
                 <br>
-                <a href="https://yoomoney.ru/transfer?to=4100119529447832&amount=500&label=mirror" target="_blank" class="btn-pay" id="payBtn">
-                    💳 Оплатить 500 ₽
+                <a href="https://yoomoney.ru/quickpay/fundraise/button?billNumber=1IK…" target="_blank" class="btn-pay" id="payBtn">
+                    💳 Оплатить 999 ₽
                 </a>
             </div>
 
@@ -387,16 +384,13 @@
 </div>
 
 <script>
-    // ===== ОТОБРАЖЕНИЕ БЛОКА =====
     function startMirror() {
         document.getElementById('welcomeBlock').style.display = 'none';
         document.getElementById('actionBlock').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ===== ЛОГИКА ОПЛАТЫ (ИМИТАЦИЯ) =====
     document.getElementById('payBtn').addEventListener('click', function(e) {
-        // После оплаты разблокируем доступ (в реальном проекте — проверка через API)
         setTimeout(function() {
             document.getElementById('uploadArea').classList.add('active');
             document.getElementById('questionInputBlock').classList.add('active');
@@ -407,7 +401,6 @@
         }, 3000);
     });
 
-    // ===== ОСТАЛЬНАЯ ЛОГИКА =====
     const uploadArea = document.getElementById('uploadArea');
     const photoInput = document.getElementById('photoInput');
     const preview = document.getElementById('preview');
@@ -425,9 +418,7 @@
             reader.onload = function(event) {
                 preview.src = event.target.result;
                 preview.style.display = 'block';
-                if (!analyzeBtn.disabled) {
-                    // Кнопка уже активна
-                }
+                if (!analyzeBtn.disabled) {}
             };
             reader.readAsDataURL(file);
         }
